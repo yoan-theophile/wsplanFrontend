@@ -21,7 +21,9 @@
     </mat-toolbar-row>
     <mat-toolbar-row>
         <a mat-button style="margin-left: 8px;" class="toolbar-link" routerLink="#" routerLinkActive="active">Students</a>
-        <a mat-button class="toolbar-link active" routerLink="#" routerLinkActive="active">Days</a>
+        <a mat-button class="toolbar-link" routerLink="#" routerLinkActive="active">Days</a>
+        <a mat-button *ngIf="isLoggedIn"
+        class="toolbar-link active" routerLink="#" routerLinkActive="active">Add</a>
     </mat-toolbar-row>
 
 </mat-toolbar>
