@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <a mat-button routerLink="#" routerLinkActive="active" style="font-size: large;">WSPlan</a>
+
+        <span class="toolbar-spacer"></span>
+        <a mat-button class="toolbar-link" routerLink="#" routerLinkActive="active" *ngIf="!isLoggedIn;else connected">
+            <mat-icon>meeting_room</mat-icon>
+            Login
+        </a>
+        <ng-template #connected>
+
+            <a mat-button class="toolbar-link" routerLink="#" routerLinkActive="active">
+                <mat-icon>person_pin</mat-icon>
+                {{name}}({{class}})
+            </a>
+            <a mat-button class="toolbar-link" routerLink="#" routerLinkActive="active">
+                <mat-icon>directions_walk</mat-icon>
+                Logout
+            </a>
+        </ng-template>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <a mat-button style="margin-left: 8px;" class="toolbar-link" routerLink="#" routerLinkActive="active">Students</a>
+        <a mat-button class="toolbar-link active" routerLink="#" routerLinkActive="active">Days</a>
+    </mat-toolbar-row>
+
+</mat-toolbar>
