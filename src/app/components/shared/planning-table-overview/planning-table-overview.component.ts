@@ -1,23 +1,10 @@
-import { Time } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface WorkingHourRange {
-  id: string;
-  start_time: string;
-  end_time: string;
-  date: Date;
-}
-
-/** Constants used to fill up our data base. */
-
-const START_TIME: string[] = ['01:00 pm', '08:00 am', '02:00 pm', '04:00 pm'];
-const END_TIME: string[] = ['05:00 pm', '02:00 pm', '08:00 pm', '06:00 pm'];
-
-const DATE: Date[] = [new Date(), new Date(), new Date(), new Date()];
+import { WorkingHourRange } from 'src/app/model';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-planning-table-overview',
@@ -26,17 +13,14 @@ const DATE: Date[] = [new Date(), new Date(), new Date(), new Date()];
 })
 export class PlanningTableOverviewComponent implements AfterViewInit {
   displayedColumns: string[] = ['date', 'start_time', 'end_time'];
-  dataSource: MatTableDataSource<WorkingHourRange>;
+  dataSource: MatTableDataSource<WorkingHourRange> = new MatTableDataSource();
   workingHourRangeList!: WorkingHourRange[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
-    this.workingHourRangeList = this.getWorkingHourRangeList();
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(this.workingHourRangeList);
+  constructor(private api: ApiService) {
+    this.getWorkingHourRangeList();
   }
 
   ngAfterViewInit() {
@@ -53,12 +37,16 @@ export class PlanningTableOverviewComponent implements AfterViewInit {
     }
   }
 
-  getWorkingHourRangeList(): WorkingHourRange[] {
-    return Array.from({ length: 5 }, (_, k) => ({
-      id: k.toString(),
-      date: DATE[k],
-      start_time: START_TIME[k],
-      end_time: END_TIME[k],
-    }));
+  getWorkingHourRangeList() {
+    this.api
+      .getWorkingHourRangeList()
+      .subscribe((workingHourRangeList: WorkingHourRange[]) => {
+        this.workingHourRangeList = workingHourRangeList;
+        
+        // Assign the data to the data source for the table to render
+        this.dataSource = new MatTableDataSource(this.workingHourRangeList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
   }
 }
