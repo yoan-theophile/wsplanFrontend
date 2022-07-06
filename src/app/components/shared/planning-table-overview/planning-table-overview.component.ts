@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-export interface PlanningElement {
+export interface WorkingHourRange {
   id: string;
   start_time: string;
   end_time: string;
@@ -14,18 +14,8 @@ export interface PlanningElement {
 
 /** Constants used to fill up our data base. */
 
-const START_TIME: string[] = [
-  "01:00 pm",
-  "08:00 am",
-  "02:00 pm",
-  "04:00 pm",
-];
-const END_TIME: string[] = [
-  "05:00 pm",
-  "02:00 pm",
-  "08:00 pm",
-  "06:00 pm",
-];
+const START_TIME: string[] = ['01:00 pm', '08:00 am', '02:00 pm', '04:00 pm'];
+const END_TIME: string[] = ['05:00 pm', '02:00 pm', '08:00 pm', '06:00 pm'];
 
 const DATE: Date[] = [new Date(), new Date(), new Date(), new Date()];
 
@@ -36,21 +26,17 @@ const DATE: Date[] = [new Date(), new Date(), new Date(), new Date()];
 })
 export class PlanningTableOverviewComponent implements AfterViewInit {
   displayedColumns: string[] = ['date', 'start_time', 'end_time'];
-  dataSource: MatTableDataSource<PlanningElement>;
+  dataSource: MatTableDataSource<WorkingHourRange>;
+  workingHourRangeList!: WorkingHourRange[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
-    const planningElementList: PlanningElement[] = Array.from({ length: 5 }, (_, k) => ({
-      id: k.toString(),
-      date: DATE[k],
-      start_time: START_TIME[k],
-      end_time: END_TIME[k],
-    }));
+    this.workingHourRangeList = this.getWorkingHourRangeList();
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(planningElementList);
+    this.dataSource = new MatTableDataSource(this.workingHourRangeList);
   }
 
   ngAfterViewInit() {
@@ -66,5 +52,13 @@ export class PlanningTableOverviewComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
 
+  getWorkingHourRangeList(): WorkingHourRange[] {
+    return Array.from({ length: 5 }, (_, k) => ({
+      id: k.toString(),
+      date: DATE[k],
+      start_time: START_TIME[k],
+      end_time: END_TIME[k],
+    }));
+  }
+}
