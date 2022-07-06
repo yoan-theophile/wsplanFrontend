@@ -25,6 +25,8 @@ import {MatCardModule} from '@angular/material/card';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { HomeComponent } from './components/home/home.component';
+import { PlanningTableOverviewComponent } from './components/shared/planning-table-overview/planning-table-overview.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AppComponent,
     LoginComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    PlanningTableOverviewComponent
   ],
   imports: [
     BrowserModule,
