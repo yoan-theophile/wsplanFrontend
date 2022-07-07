@@ -1,0 +1,28 @@
+<form [formGroup]="addWorkingHourForm" (ngSubmit)="onSubmit()" action="">
+    <fieldset>
+        <legend>
+            Add elements to my planning
+        </legend>
+        <div >
+            <mat-form-field appearance="legacy">
+                <mat-label>Day</mat-label>
+                <input type="date" formControlName="date" matInput placeholder="Enter date">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Start</mat-label>
+                <input type="time" formControlName="start_time" matInput placeholder="Start time">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="legacy">
+                <mat-label>Stop</mat-label>
+                <input type="time" formControlName="end_time" matInput placeholder="End time">
+            </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!addWorkingHourForm.valid">
+            Save
+        </button>
+    </fieldset>
+</form>
