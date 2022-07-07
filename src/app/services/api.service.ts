@@ -13,6 +13,22 @@ export class ApiService {
   baseUrl: string = "http://localhost:3000";
   constructor(private http: HttpClient) { }
 
+  putWorkingHourRange(id: number, data: WorkingHourRange ): Observable<WorkingHourRange> {
+    return this.http.put<WorkingHourRange>(`${this.baseUrl}/working_hour_range/${id}`, data);
+  }
+
+  deleteWorkingHourRange(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/working_hour_range/${id}`);
+  }
+
+  addWorkingHourRange(data: WorkingHourRange): Observable<WorkingHourRange> {
+    return this.http.post<WorkingHourRange>(`${this.baseUrl}/working_hour_range`, data);
+  }
+
+  getWorkingHourRange(data: WorkingHourRange): Observable<WorkingHourRange> {
+    return this.http.get<WorkingHourRange>(`${this.baseUrl}/working_hour_range`);
+  }
+
   getWorkingHourRangeList(): Observable<WorkingHourRange[]> {
     return this.http.get<WorkingHourRange[]>(`${this.baseUrl}/working_hour_range`);
   }

@@ -1,5 +1,5 @@
 export interface WorkingHourRange {
-  id: string;
+  id?: string;
   start_time: string;
   end_time: string;
   date: Date;

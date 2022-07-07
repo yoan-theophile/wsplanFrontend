@@ -42,11 +42,12 @@ export class PlanningTableOverviewComponent implements AfterViewInit {
       .getWorkingHourRangeList()
       .subscribe((workingHourRangeList: WorkingHourRange[]) => {
         this.workingHourRangeList = workingHourRangeList;
-        
+
         // Assign the data to the data source for the table to render
         this.dataSource = new MatTableDataSource(this.workingHourRangeList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
+
   }
 }
