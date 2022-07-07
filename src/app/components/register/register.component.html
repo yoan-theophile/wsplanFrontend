@@ -1,0 +1,29 @@
+<mat-card class="register-card">
+    <mat-card-title style="margin-bottom: 24px;">Register a new student</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="registerForm" action="" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="legacy">
+                <mat-label>FirstName</mat-label>
+                <input type="text" formControlName="firstName" matInput placeholder="Enter firstName">
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+                <mat-label>LastName</mat-label>
+                <input type="text" formControlName="lastName" matInput placeholder="Enter lastName">
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+                <mat-label>Class</mat-label>
+                <input type="text" formControlName="class" matInput placeholder="Enter class">
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+                <mat-label>Email</mat-label>
+                <input type="email" formControlName="email" matInput placeholder="Enter email">
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+                <mat-label>Password</mat-label>
+                <input type="password" formControlName="password" matInput placeholder="Enter password">
+            </mat-form-field>
+            <button mat-raised-button type="submit" color="primary" [disabled]="!registerForm.valid">Register</button>
+            <a mat-button routerLink="/">Cancel</a>
+        </form>
+    </mat-card-content>
+</mat-card>

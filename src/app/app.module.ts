@@ -30,6 +30,7 @@ import { PlanningTableOverviewComponent } from './components/shared/planning-tab
 import { HttpHeaderInterceptor } from './interceptors/http-headers.interceptor';
 import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor';
 import { AddWorkingHourFormComponent } from './components/shared/add-working-hour-form/add-working-hour-form.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { AddWorkingHourFormComponent } from './components/shared/add-working-hou
     FooterComponent,
     HomeComponent,
     PlanningTableOverviewComponent,
-    AddWorkingHourFormComponent
+    AddWorkingHourFormComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
