@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       class: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(6)],
+      password: ['', Validators.required],
     });
   }
   onSubmit() {
