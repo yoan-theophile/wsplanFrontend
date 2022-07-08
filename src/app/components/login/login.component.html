@@ -1,7 +1,7 @@
 <mat-card class="login-card">
     <mat-card-title style="margin-bottom: 24px;">Login to add elements to planning</mat-card-title>
     <mat-card-content>
-        <form [formGroup]="loginForm" action="" (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm" action="" (ngSubmit)="login()">
             <mat-form-field appearance="legacy">
                 <mat-label>Email</mat-label>
                 <input type="email" formControlName="email" matInput placeholder="Enter email">
