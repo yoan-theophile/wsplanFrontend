@@ -8,6 +8,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
+  loading = false;
+  submitted = false;
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
@@ -16,7 +19,7 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       class: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', Validators.required, Validators.minLength(6)],
     });
   }
   onSubmit() {

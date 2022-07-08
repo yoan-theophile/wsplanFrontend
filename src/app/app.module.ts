@@ -31,6 +31,7 @@ import { HttpHeaderInterceptor } from './interceptors/http-headers.interceptor';
 import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor';
 import { AddWorkingHourFormComponent } from './components/shared/add-working-hour-form/add-working-hour-form.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AlertComponent } from './components/shared/alert/alert.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { RegisterComponent } from './components/register/register.component';
     HomeComponent,
     PlanningTableOverviewComponent,
     AddWorkingHourFormComponent,
-    RegisterComponent
+    RegisterComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
