@@ -5,24 +5,45 @@
             <mat-form-field appearance="legacy">
                 <mat-label>FirstName</mat-label>
                 <input type="text" formControlName="firstName" matInput placeholder="Enter firstName">
+                <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                    FirstName is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>LastName</mat-label>
                 <input type="text" formControlName="lastName" matInput placeholder="Enter lastName">
+                <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                    LastName is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Class</mat-label>
                 <input type="text" formControlName="class" matInput placeholder="Enter class">
+                <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                    Class is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Email</mat-label>
                 <input type="email" formControlName="email" matInput placeholder="Enter email">
+                <mat-error
+                    *ngIf="registerForm.controls['email'].hasError('email') && !registerForm.controls['email'].hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Password</mat-label>
                 <input type="password" formControlName="password" matInput placeholder="Enter password">
+                <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
-            <button mat-raised-button type="submit" color="primary" [disabled]="!registerForm.valid">Register</button>
+            <button mat-raised-button type="submit" color="primary" [disabled]="!registerForm.valid">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1" role="status"
+                    aria-hidden="true"></span>Register</button>
             <a mat-button routerLink="/">Cancel</a>
         </form>
     </mat-card-content>
