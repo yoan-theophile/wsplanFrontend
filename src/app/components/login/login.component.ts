@@ -46,43 +46,39 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loginForm);
     this.loginForm.hasError('email') 
-    console.log("📜 -----------------------------------------------------------------------------------------------------------------------------------------📜")
-    console.log("📜 ~ file: login.component.ts ~ line 51 ~ LoginComponent ~ onSubmit ~ this.loginForm.hasError('email') ", this.loginForm.hasError('required', 'email'))
-    console.log("📜 -----------------------------------------------------------------------------------------------------------------------------------------📜")
-    // this.submitted = true;
+    this.submitted = true;
 
-    // // reset alerts on submit
-    // this.alertService.clear();
+    // reset alerts on submit
+    this.alertService.clear();
 
-    // // stop here if form is invalid
-    // if (this.loginForm.invalid) {
-    //   return;
-    // }
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
 
-    // this.loading = true;
+    this.loading = true;
 
-    // this.authenticationService
-    //   .login(this.f['email'].value, this.f['password'].value)
-    //   .pipe(first())
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.router.navigate([this.returnUrl]);
-    //     },
-    //     error: (error) => {
-    //       this.alertService.error(error);
-    //       this.loading = false;
-    //     },
-    //   });
-    // const value = this.loginForm.value;
-    // if (value.email && value.password) {
-    //   this.authenticationService
-    //     .login(value.email, value.password)
-    //     .subscribe(() => {
-    //       console.log('User is logged in');
-    //       this.router.navigateByUrl('/');
-    //     });
-    // }
+    this.authenticationService
+      .login(this.f['email'].value, this.f['password'].value)
+      .pipe(first())
+      .subscribe({
+        next: (data) => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error: (error) => {
+          this.alertService.error(error);
+          this.loading = false;
+        },
+      });
+    const value = this.loginForm.value;
+    if (value.email && value.password) {
+      this.authenticationService
+        .login(value.email, value.password)
+        .subscribe(() => {
+          console.log('User is logged in');
+          this.router.navigateByUrl('/');
+        });
+    }
   }
 }

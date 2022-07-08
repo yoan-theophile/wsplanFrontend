@@ -5,7 +5,8 @@
             <mat-form-field appearance="legacy">
                 <mat-label>Email</mat-label>
                 <input type="email" formControlName="email" matInput placeholder="Enter email" required>
-                <mat-error *ngIf="loginForm.controls['email'].hasError('email') && !loginForm.controls['email'].hasError('required')">
+                <mat-error
+                    *ngIf="loginForm.controls['email'].hasError('email') && !loginForm.controls['email'].hasError('required')">
                     Please enter a valid email address
                 </mat-error>
                 <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
@@ -19,7 +20,9 @@
                     Password is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
-            <button mat-raised-button type="submit" color="primary" [disabled]="!loginForm.valid">Login</button>
+            <button mat-raised-button type="submit" color="primary" [disabled]="!loginForm.valid">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1" role="status"
+                    aria-hidden="true"></span>Login</button>
         </form>
     </mat-card-content>
 </mat-card>
