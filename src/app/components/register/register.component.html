@@ -5,21 +5,21 @@
             <mat-form-field appearance="legacy">
                 <mat-label>FirstName</mat-label>
                 <input type="text" formControlName="firstName" matInput placeholder="Enter firstName">
-                <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                <mat-error *ngIf="registerForm.controls['firstName'].hasError('required')">
                     FirstName is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>LastName</mat-label>
                 <input type="text" formControlName="lastName" matInput placeholder="Enter lastName">
-                <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                <mat-error *ngIf="registerForm.controls['lastName'].hasError('required')">
                     LastName is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
             <mat-form-field appearance="legacy">
                 <mat-label>Class</mat-label>
                 <input type="text" formControlName="class" matInput placeholder="Enter class">
-                <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                <mat-error *ngIf="registerForm.controls['class'].hasError('required')">
                     Class is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
@@ -37,7 +37,7 @@
             <mat-form-field appearance="legacy">
                 <mat-label>Password</mat-label>
                 <input type="password" formControlName="password" matInput placeholder="Enter password">
-                <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+                <mat-error *ngIf="registerForm.controls['password'].hasError('required')">
                     Password is <strong>required</strong>
                 </mat-error>
             </mat-form-field>

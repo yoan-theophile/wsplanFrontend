@@ -11,6 +11,7 @@ import { User } from '../model';
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  private apiUrl = 'localhost:3000';
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser') || '{}'));
@@ -23,7 +24,7 @@ export class AuthenticationService {
    }
    
    login(email: string, password: string){
-    return this.http.post<any>(`${appConfig.apiUrl}/users/authenticate`, { email, password})
+    return this.http.post<any>(`${this.apiUrl}/users/authenticate`, { email, password})
       .pipe(map((user: User) => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));

@@ -34,7 +34,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { FakeBackendInterceptor } from './interceptors/fake-backend.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +69,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     HttpClientModule,
     MatCardModule,
     MatGridListModule,
+    MatListModule
   ],
   providers: [
     {

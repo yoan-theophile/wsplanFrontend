@@ -6,18 +6,19 @@ import { User } from '../model';
   providedIn: 'root'
 })
 export class UserService {
+  private apiUrl = 'localhost:3000';
 
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<User[]>(`${appConfig.apiUrl}/users`);
+    return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
 
   register(user: User){
-    return this.http.post(`${appConfig.apiUrl}/users`, user)
+    return this.http.post(`${this.apiUrl}/users`, user)
   }
 
   delete(id: number) {
-    return this.http.delete(`${appConfig.apiUrl}/users/${id}`)
+    return this.http.delete(`${this.apiUrl}/users/${id}`)
   }
 }

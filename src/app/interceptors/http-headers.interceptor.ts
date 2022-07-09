@@ -12,17 +12,21 @@ export class HttpHeaderInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(
-    req: HttpRequest<any>,
+    request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // const headers = req.headers
-    //     .set('Content-Type', 'application/json');
-    // const authReq = req.clone({ headers });
-    // return next.handle(authReq);
-
-    // * On spécifie des headers s'il y en a nécessite car certaines api en ont besoin pour 
+    // * On spécifie des headers s'il y en a nécessite car certaines api en ont besoin pour
     // * authentifier le consommer de l'API
-    req = req.clone({
+    const headers = request.headers
+      .set('Content-Type', 'application/json')
+      // .set('Access-Control-Allow-Origin', '*')
+      // .set('Access-Control-Allow-Headers', 'Content-Type')
+      // .set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
+
+    const req = request.clone({ headers });
+    return next.handle(req);
+
+    // req = req.clone({
     //   setHeaders: {
     //     'x-rapidapi-key': 'qwertyuiop;lkjhgfdsazxcvbnm',
     //     'x-rapidapi-host': 'zxcvbnml;lkjhgfdsaqwertyuiop[',
@@ -30,8 +34,8 @@ export class HttpHeaderInterceptor implements HttpInterceptor {
     //   setParams: {
     //       key: '123456790987654321'
     //   }
-    });
+    // });
 
-    return next.handle(req);
+    // return next.handle(request);
   }
 }

@@ -1,37 +1,11 @@
 <!-- <app-add-working-hour-form></app-add-working-hour-form> -->
 <!-- <app-planning-table-overview></app-planning-table-overview> -->
-<h1>Angular 8 Alerts</h1>
-<button class="btn btn-success m-1" (click)="alertService.success('Success!!', options)">Success</button>
-<button class="btn btn-danger m-1" (click)="alertService.error('Error :(', options)">Error</button>
-<button class="btn btn-info m-1" (click)="alertService.info('Some info....', options)">Info</button>
-<button class="btn btn-warning m-1" (click)="alertService.warn('Warning: ...', options)">Warn</button>
-<button class="btn btn-outline-dark m-1" (click)="alertService.clear()">Clear</button>
-<div class="form-group mt-2">
-    <div class="form-check">
-        <input type="checkbox" name="autoClose" id="autoClose" class="form-check-input" [(ngModel)]="options.autoClose">
-        <label for="autoClose">Auto close alert after three seconds</label>
-    </div>
-    <div class="form-check">
-        <input type="checkbox" name="keepAfterRouteChange" id="keepAfterRouteChange" class="form-check-input" [(ngModel)]="options.keepAfterRouteChange">
-        <label for="keepAfterRouteChange">Keep displaying after one route change</label>
-    </div>
-</div>
-<h1>Multiple Alerts</h1>
-<div class="row">
-    <div class="col">
-        <app-alert id="alert-1"></app-alert>
-        <button class="btn btn-success m-1" (click)="alertService.success('Success on the left!!', { id: 'alert-1', autoClose: true })">Success</button>
-        <button class="btn btn-danger m-1" (click)="alertService.error('Error on the left :(', { id: 'alert-1', keepAfterRouteChange: true })">Error</button>
-        <button class="btn btn-info m-1" (click)="alertService.info('Some info on the left....', { id: 'alert-1' })">Info</button>
-        <button class="btn btn-warning m-1" (click)="alertService.warn('Warning on the left: ...', { id: 'alert-1' })">Warn</button>
-        <button class="btn btn-outline-dark m-1" (click)="alertService.clear('alert-1')">Clear</button>
-    </div>
-    <div class="col">
-        <app-alert id="alert-2"></app-alert>
-        <button class="btn btn-success m-1" (click)="alertService.success('Success on the right!!', { id: 'alert-2' })">Success</button>
-        <button class="btn btn-danger m-1" (click)="alertService.error('Error on the right :(', { id: 'alert-2' })">Error</button>
-        <button class="btn btn-info m-1" (click)="alertService.info('Some info on the right....', { id: 'alert-2' })">Info</button>
-        <button class="btn btn-warning m-1" (click)="alertService.warn('Warning on the right: ...', { id: 'alert-2' })">Warn</button>
-        <button class="btn btn-outline-dark m-1" (click)="alertService.clear('alert-2')">Clear</button>
-    </div>
-</div>
+<h1>Hi {{currentUser.firstName}}!</h1>
+<p>You're logged in with Angular 8!!</p>
+<h3>All registered users</h3>
+<mat-list role="list">
+    <mat-list-item *ngFor="let user of users" role="listitem">
+        {{user.email}} ({{user.firstName}} {{user.lastName}}) - <a (click)="deleteUser(user.id)"
+            class="text-danger">Delete</a>
+    </mat-list-item>
+</mat-list>

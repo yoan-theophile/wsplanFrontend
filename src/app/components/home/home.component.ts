@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/services/alert.service';
+import { first } from 'rxjs/operators';
+import { User } from 'src/app/model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +10,31 @@ import { AlertService } from 'src/app/services/alert.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  options = {
-    autoClose: false,
-    keepAfterRouteChange: false,
-  };
+  currentUser!: User;
+  users!: User[];
 
-  constructor(protected alertService: AlertService) {}
+  constructor(
+    protected userService: UserService,
+    private authenticationService: AuthenticationService
+  ) {
+    this.currentUser = this.authenticationService.currentUserValue;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadAllUsers();
+  }
+
+  deleteUser(id: number) {
+    this.userService
+      .delete(id)
+      .pipe(first())
+      .subscribe(() => this.loadAllUsers());
+  }
+
+  private loadAllUsers() {
+    this.userService
+      .getAll()
+      .pipe(first())
+      .subscribe((users: any) => (this.users = users));
+  }
 }
