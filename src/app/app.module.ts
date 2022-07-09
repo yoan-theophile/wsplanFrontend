@@ -32,6 +32,7 @@ import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor';
 import { AddWorkingHourFormComponent } from './components/shared/add-working-hour-form/add-working-hour-form.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
+import { FakeBackendInterceptor } from './interceptors/fake-backend.interceptor';
 
 
 @NgModule({
@@ -80,6 +81,12 @@ import { AlertComponent } from './components/shared/alert/alert.component';
       useClass: HttpErrorsInterceptor,
       multi: true,
     },
+    {
+      // use fake backend in place of Http service for backend-less development
+      provide: HTTP_INTERCEPTORS,
+      useClass: FakeBackendInterceptor,
+      multi: true
+  }
   ],
   bootstrap: [AppComponent]
 })
