@@ -6,7 +6,7 @@ import { User } from '../model';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'localhost:3000';
+  private apiUrl = '';
 
   constructor(private http: HttpClient) { }
 
@@ -15,7 +15,7 @@ export class UserService {
   }
 
   register(user: User){
-    return this.http.post(`${this.apiUrl}/users`, user)
+    return this.http.post(`${this.apiUrl}/users/register`, user)
   }
 
   delete(id: number) {

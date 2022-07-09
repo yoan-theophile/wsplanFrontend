@@ -26,7 +26,7 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
         }
 
         console.error(err);
-        const errorMessage = err.error.message || err.statusText;
+        const errorMessage = err.message || err.statusText;
         return observableThrowError(() => {
           const error: any = new Error(errorMessage);
           error.timestamps = new Date();

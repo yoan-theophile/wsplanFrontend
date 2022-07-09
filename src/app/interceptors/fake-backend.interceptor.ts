@@ -83,7 +83,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
     function getUsers() {
         if(!isLoggedIn()) return unauthorized();
-        return ok();
+        return ok(users);
     }
 
     function deleteUser() {

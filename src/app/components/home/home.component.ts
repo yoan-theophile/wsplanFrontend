@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     protected userService: UserService,
+    private router: Router,
     private authenticationService: AuthenticationService
   ) {
     this.currentUser = this.authenticationService.currentUserValue;
@@ -36,5 +38,10 @@ export class HomeComponent implements OnInit {
       .getAll()
       .pipe(first())
       .subscribe((users: any) => (this.users = users));
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 }
