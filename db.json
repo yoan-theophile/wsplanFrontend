@@ -1,4 +1,14 @@
 {
+  "users": [
+    {
+      "firstName": "f",
+      "lastName": "l",
+      "class": "c",
+      "email": "email@email.com",
+      "password": "email@email.com",
+      "id": 1
+    }
+  ],
   "posts": [
     {
       "id": 1,

@@ -34,6 +34,7 @@ export enum AlertType {
 export class User {
   id!: number;
   email!: string;
+  class!: string;
   password!: string;
   firstName!: string;
   lastName!: string;

@@ -87,12 +87,12 @@ import {MatListModule} from '@angular/material/list';
       useClass: HttpErrorsInterceptor,
       multi: true,
     },
-    {
-      // use fake backend in place of Http service for backend-less development
-      provide: HTTP_INTERCEPTORS,
-      useClass: FakeBackendInterceptor,
-      multi: true,
-    },
+    // {
+    //   // use fake backend in place of Http service for backend-less development
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: FakeBackendInterceptor,
+    //   multi: true,
+    // },
   ],
   bootstrap: [AppComponent],
 })
