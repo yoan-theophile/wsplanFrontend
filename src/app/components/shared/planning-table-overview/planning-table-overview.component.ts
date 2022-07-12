@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, tap } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { WorkingHourRange } from 'src/app/model';
+import { User, WorkingHourRange } from 'src/app/model';
 import { WorkingHourRangeService } from 'src/app/services/working-hour-range.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { WorkingHourRangeService } from 'src/app/services/working-hour-range.ser
   styleUrls: ['./planning-table-overview.component.scss'],
 })
 export class PlanningTableOverviewComponent implements AfterViewInit {
-  displayedColumns: string[] = ['date', 'start_time', 'end_time'];
+  displayedColumns: string[] = ['date', 'start_time', 'end_time', 'action'];
   dataSource: MatTableDataSource<WorkingHourRange> = new MatTableDataSource();
   workingHourRangeList$!: Observable<any[]>;
   workingHourRangeList!: WorkingHourRange[];
@@ -56,18 +56,35 @@ export class PlanningTableOverviewComponent implements AfterViewInit {
         this.dataSource = new MatTableDataSource(this.workingHourRangeList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        
+
         this.loading = false;
       },
-      error: () => {},
+      error: (err) => {
+        console.log(
+          '📜 ~ file: planning-table-overview.component.ts ~ PlanningTableOverviewComponent ~ getWorkingHourRangeList ~ err',
+          err
+        );
+      },
     });
-    // .subscribe((workingHourRangeList: WorkingHourRange[]) => {
-    //   this.workingHourRangeList = workingHourRangeList;
+  }
 
-    //   // Assign the data to the data source for the table to render
-    //   this.dataSource = new MatTableDataSource(this.workingHourRangeList);
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    // });
+  onDelete(id: number) {
+    this.loading = true;
+    this.workingHourRangeService
+      .delete(id)
+      .then(() => {
+        this.loading = false;
+        this.getWorkingHourRangeList();
+      })
+      .catch((err) => {
+        console.log(
+          '📜 ~ file: planning-table-overview.component.ts ~ PlanningTableOverviewComponent ~ onDelete ~ err',
+          err
+        );
+      });
+  }
+
+  onEdit(row: User) {
+    console.log(row);
   }
 }

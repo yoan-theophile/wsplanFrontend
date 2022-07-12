@@ -39,10 +39,20 @@ export class WorkingHourRangeService {
     );
   }
 
-  deleteWorkingHourRange(id: number): Observable<any> {
-    return this.http.delete<any>(
-      `${environment.JSON_SERVER_URL}/users/1/working_hour_range/${id}`
-    );
+  async delete(id: number) {
+    const whr$ = await this.http
+      .delete<any>(
+        `${environment.JSON_SERVER_URL}/working_hour_range/${id}`
+      )
+      .pipe(delay(500));
+    await lastValueFrom(whr$)
+      .then(() => {
+        this.getList();
+      })
+      .catch((err) => {
+        console.log(err);
+        this.error('An error occurred while deleting data.');
+      });
   }
 
   async add(date: string, start_time: string, end_time: string) {

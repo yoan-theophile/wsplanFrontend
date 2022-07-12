@@ -163,20 +163,6 @@
       "end_time": "13:02",
       "studentId": "1",
       "id": 20
-    },
-    {
-      "date": "2022-07-05",
-      "start_time": "13:02",
-      "end_time": "13:02",
-      "studentId": "1",
-      "id": 21
-    },
-    {
-      "date": "2022-07-12",
-      "start_time": "15:01",
-      "end_time": "15:01",
-      "studentId": "1",
-      "id": 22
     }
   ]
 }

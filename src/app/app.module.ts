@@ -29,7 +29,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PlanningTableOverviewComponent } from './components/shared/planning-table-overview/planning-table-overview.component';
 import { HttpHeaderInterceptor } from './interceptors/http-headers.interceptor';
 import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor';
-import { EditWorkingHourFormComponent } from './components/shared/working-hour-form/edit-working-hour-form.component';
+import { EditWorkingHourFormComponent } from './components/shared/edit-working-hour-form/edit-working-hour-form.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { FakeBackendInterceptor } from './interceptors/fake-backend.interceptor';
