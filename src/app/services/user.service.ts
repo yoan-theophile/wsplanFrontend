@@ -11,14 +11,14 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<User[]>(`${environment.apiUrl}/users`);
+    return this.http.get<User[]>(`${environment.API_URL}/users`);
   }
 
   register(user: User){
-    return this.http.post(`${environment.apiUrl}/users/register`, user)
+    return this.http.post(`${environment.API_URL}/users/register`, user)
   }
 
   delete(id: number) {
-    return this.http.delete(`${environment.apiUrl}/users/${id}`)
+    return this.http.delete(`${environment.API_URL}/users/${id}`)
   }
 }

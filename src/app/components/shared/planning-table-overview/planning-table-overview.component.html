@@ -1,3 +1,5 @@
+<h1>Summary</h1>
+<mat-progress-bar *ngIf="loading" mode="query"></mat-progress-bar>
 <mat-form-field appearance="standard">
     <mat-label>Filter</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Ven" #input>

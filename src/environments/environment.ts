@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  JSON_SERVER_URL: 'localhost:3000',
-  apiUrl: ''
+  JSON_SERVER_URL: 'http://localhost:3000',
+  API_URL: ''
 };
 
 /*

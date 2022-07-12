@@ -29,12 +29,17 @@ import { HomeComponent } from './components/home/home.component';
 import { PlanningTableOverviewComponent } from './components/shared/planning-table-overview/planning-table-overview.component';
 import { HttpHeaderInterceptor } from './interceptors/http-headers.interceptor';
 import { HttpErrorsInterceptor } from './interceptors/http-errors.interceptor';
-import { AddWorkingHourFormComponent } from './components/shared/add-working-hour-form/add-working-hour-form.component';
+import { EditWorkingHourFormComponent } from './components/shared/working-hour-form/edit-working-hour-form.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { FakeBackendInterceptor } from './interceptors/fake-backend.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import {MatListModule} from '@angular/material/list';
+import { EditWorkingHourComponent } from './components/edit-working-hour/edit-working-hour.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,9 +48,10 @@ import {MatListModule} from '@angular/material/list';
     FooterComponent,
     HomeComponent,
     PlanningTableOverviewComponent,
-    AddWorkingHourFormComponent,
+    EditWorkingHourFormComponent,
     RegisterComponent,
     AlertComponent,
+    EditWorkingHourComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +75,9 @@ import {MatListModule} from '@angular/material/list';
     HttpClientModule,
     MatCardModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   providers: [
     {
@@ -77,11 +85,11 @@ import {MatListModule} from '@angular/material/list';
       useClass: HttpHeaderInterceptor,
       multi: true,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: JwtInterceptor,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorsInterceptor,

@@ -2,9 +2,16 @@ export interface WorkingHourRange {
   id?: string;
   start_time: string;
   end_time: string;
-  date: Date;
+  date: string;
   student_id?: string;
-  student_name?: string;
+}
+
+export interface Student {
+  id?: number;
+  firstname: string;
+  lastname: string;
+  sex: string;
+  class: string;
 }
 
 export interface APIResponse<T> {
