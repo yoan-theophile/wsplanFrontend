@@ -42,7 +42,7 @@ export class WorkingHourRangeService {
 
   // helpers
   error(message: string, autoClose: boolean = true) {
-    this.alertService.error(message, { autoClose});
+    this.alertService.error(message, { autoClose });
     return throwError(() => {
       const error: any = new Error(message);
       error.timestamps = new Date();
@@ -100,12 +100,6 @@ export class WorkingHourRangeService {
       });
   }
 
-  getWorkingHourRange(data: WorkingHourRange): Observable<WorkingHourRange> {
-    return this.http.get<WorkingHourRange>(
-      `${environment.JSON_SERVER_URL}/users/1/working_hour_range`
-    );
-  }
-
   async getList() {
     const whr$ = await this.http
       .get<WorkingHourRange[]>(
@@ -117,7 +111,7 @@ export class WorkingHourRangeService {
         this.workingHourRangeList.next(res);
       })
       .catch((err) => {
-        this.error('An error occurred while loading data.');
+        this.error('An error occurred while loading data.', false);
       });
   }
 }
