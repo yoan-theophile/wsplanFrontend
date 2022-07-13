@@ -17,7 +17,6 @@ import { WorkingHourRangeService } from 'src/app/services/working-hour-range.ser
 export class PlanningTableOverviewComponent implements AfterViewInit {
   displayedColumns: string[] = ['date', 'start_time', 'end_time', 'action'];
   dataSource: MatTableDataSource<WorkingHourRange> = new MatTableDataSource();
-  workingHourRangeList$!: Observable<any[]>;
   workingHourRangeList!: WorkingHourRange[];
   loading: boolean = false;
 
@@ -45,9 +44,8 @@ export class PlanningTableOverviewComponent implements AfterViewInit {
   getWorkingHourRangeList() {
     this.loading = true;
     this.workingHourRangeService.getList();
-    this.workingHourRangeList$ =
-      this.workingHourRangeService.workingHourRangeList$;
-    this.workingHourRangeList$.subscribe({
+
+    this.workingHourRangeService.workingHourRangeList$.subscribe({
       next: (data) => {
         if (!data) return;
         this.workingHourRangeList = data;
@@ -84,7 +82,7 @@ export class PlanningTableOverviewComponent implements AfterViewInit {
       });
   }
 
-  onEdit(row: User) {
-    console.log(row);
+  onEdit(row: WorkingHourRange) {
+    this.workingHourRangeService.setCurrentWorkingHourRange(row);
   }
 }

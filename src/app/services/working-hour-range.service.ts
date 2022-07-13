@@ -16,10 +16,33 @@ export class WorkingHourRangeService {
   public workingHourRangeList$: Observable<any> =
     this.workingHourRangeList.asObservable();
 
+  // This subject is used to update a working hour
+  private currentWorkingHourRange: BehaviorSubject<WorkingHourRange> =
+    new BehaviorSubject({
+      start_time: '',
+      end_time: '',
+      date: '',
+    });
+  public currentWorkingHourRange$: Observable<WorkingHourRange> =
+    this.currentWorkingHourRange.asObservable();
+
   constructor(private http: HttpClient, private alertService: AlertService) {}
 
+  setCurrentWorkingHourRange(workingHourRange: WorkingHourRange) {
+    this.currentWorkingHourRange.next(workingHourRange);
+  }
+
+  setDefaultCurrentWorkingHourRange() {
+    this.currentWorkingHourRange.next({
+      start_time: '',
+      end_time: '',
+      date: '',
+    });
+  }
+
   // helpers
-  error(message: string) {
+  error(message: string, autoClose: boolean = true) {
+    this.alertService.error(message, { autoClose});
     return throwError(() => {
       const error: any = new Error(message);
       error.timestamps = new Date();
@@ -27,30 +50,32 @@ export class WorkingHourRangeService {
     });
   }
 
-  // route functions
-
-  putWorkingHourRange(
-    id: number,
-    data: WorkingHourRange
-  ): Observable<WorkingHourRange> {
-    return this.http.put<WorkingHourRange>(
-      `${environment.JSON_SERVER_URL}/users/1/working_hour_range/${id}`,
-      data
-    );
+  async put(data: WorkingHourRange) {
+    await lastValueFrom(
+      this.http
+        .put<WorkingHourRange>(
+          `${environment.JSON_SERVER_URL}/working_hour_range/${data.id}`,
+          data
+        )
+        .pipe(delay(500))
+    )
+      .then(() => {
+        this.getList();
+      })
+      .catch((err) => {
+        this.error('An error occurred while saving data.');
+      });
   }
 
   async delete(id: number) {
     const whr$ = await this.http
-      .delete<any>(
-        `${environment.JSON_SERVER_URL}/working_hour_range/${id}`
-      )
+      .delete<any>(`${environment.JSON_SERVER_URL}/working_hour_range/${id}`)
       .pipe(delay(500));
     await lastValueFrom(whr$)
       .then(() => {
         this.getList();
       })
       .catch((err) => {
-        console.log(err);
         this.error('An error occurred while deleting data.');
       });
   }
@@ -71,7 +96,6 @@ export class WorkingHourRangeService {
         this.getList();
       })
       .catch((err) => {
-        console.log(err);
         this.error('An error occurred while saving data.');
       });
   }
@@ -93,7 +117,6 @@ export class WorkingHourRangeService {
         this.workingHourRangeList.next(res);
       })
       .catch((err) => {
-        console.log(err);
         this.error('An error occurred while loading data.');
       });
   }

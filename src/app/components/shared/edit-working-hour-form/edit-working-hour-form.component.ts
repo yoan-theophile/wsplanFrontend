@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert.service';
 import { WorkingHourRangeService } from 'src/app/services/working-hour-range.service';
 import { WorkingHourRange } from '../../../model';
@@ -12,6 +12,7 @@ import { WorkingHourRange } from '../../../model';
 export class EditWorkingHourFormComponent implements OnInit {
   editWorkingHourForm!: FormGroup;
   loading: boolean = false;
+  currentWorkingHourRange!: WorkingHourRange;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,10 +21,21 @@ export class EditWorkingHourFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.workingHourRangeService.currentWorkingHourRange$.subscribe({
+      next: (data: WorkingHourRange) => {
+        this.currentWorkingHourRange = data;
+        if (this.editWorkingHourForm)
+          this.editWorkingHourForm.patchValue(this.currentWorkingHourRange);
+      },
+    });
+
     this.editWorkingHourForm = this.formBuilder.group({
-      date: ['', Validators.required],
-      start_time: ['', Validators.required],
-      end_time: ['', Validators.required],
+      date: [this.currentWorkingHourRange.date, Validators.required],
+      start_time: [
+        this.currentWorkingHourRange.start_time,
+        Validators.required,
+      ],
+      end_time: [this.currentWorkingHourRange.end_time, Validators.required],
     });
   }
 
@@ -42,15 +54,38 @@ export class EditWorkingHourFormComponent implements OnInit {
     }
 
     this.loading = true;
-    this.workingHourRangeService
-      .add(
-        this.f['date'].value,
-        this.f['start_time'].value,
-        this.f['end_time'].value
-      )
-      .then(() => {
-        this.loading = false;
-        this.editWorkingHourForm.reset();
-      });
+
+    if (this.currentWorkingHourRange.id) {
+      this.workingHourRangeService
+        .put({
+          ...this.currentWorkingHourRange,
+          date: this.f['date'].value,
+          start_time: this.f['start_time'].value,
+          end_time: this.f['end_time'].value,
+        })
+        .then(() => {
+          this.loading = false;
+          this.editWorkingHourForm.reset();
+          this.workingHourRangeService.setDefaultCurrentWorkingHourRange();
+
+          //  resetting the error state for each form control
+          Object.keys(this.editWorkingHourForm.controls).forEach(key =>{
+            this.editWorkingHourForm.controls[key].setErrors(null)
+         });
+        });
+    } else {
+      this.workingHourRangeService
+        .add(
+          this.f['date'].value,
+          this.f['start_time'].value,
+          this.f['end_time'].value
+        )
+        .then(() => {
+          this.loading = false;
+          this.editWorkingHourForm.reset();
+          this.workingHourRangeService.setDefaultCurrentWorkingHourRange();
+        });
+    }
   }
+
 }
