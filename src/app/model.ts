@@ -3,7 +3,7 @@ export interface WorkingHourRange {
   start_time: string;
   end_time: string;
   date: string;
-  student_id?: string;
+  studentId?: string;
 }
 
 export interface Student {

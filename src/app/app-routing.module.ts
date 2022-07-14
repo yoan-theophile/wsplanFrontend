@@ -4,6 +4,7 @@ import { EditWorkingHourComponent } from './components/edit-working-hour/edit-wo
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { WeeklyPlanningOverviewComponent } from './components/weekly-planning-overview/weekly-planning-overview.component';
 import { AuthGuard } from './interceptors/guard';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
     // , canActivate: [AuthGuard]
   },
   { path: 'add', component: EditWorkingHourComponent },
+  { path: 'days', component: WeeklyPlanningOverviewComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 

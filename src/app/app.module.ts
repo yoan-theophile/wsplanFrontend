@@ -38,6 +38,8 @@ import {MatListModule} from '@angular/material/list';
 import { EditWorkingHourComponent } from './components/edit-working-hour/edit-working-hour.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { WeeklyPlanningOverviewComponent } from './components/weekly-planning-overview/weekly-planning-overview.component';
+import {MatTreeModule} from '@angular/material/tree';
 
 
 @NgModule({
@@ -52,6 +54,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     RegisterComponent,
     AlertComponent,
     EditWorkingHourComponent,
+    WeeklyPlanningOverviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatGridListModule,
     MatListModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTreeModule
   ],
   providers: [
     {

@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, lastValueFrom, Observable, throwError } from 'rxjs';
 import { delay, first } from 'rxjs/operators';
 import { environment as env, environment } from 'src/environments/environment';
-import { WorkingHourRange } from '../model';
+import { Student, WorkingHourRange } from '../model';
 import { AlertService } from './alert.service';
+import { LoggerService } from './logger.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +28,15 @@ export class WorkingHourRangeService {
   public currentWorkingHourRange$: Observable<WorkingHourRange> =
     this.currentWorkingHourRange.asObservable();
 
-  constructor(private http: HttpClient, private alertService: AlertService) {}
+  // This subject is used to get the weekly planning
+  private weeklyPlanning: BehaviorSubject<any> = new BehaviorSubject(null);
+  public weeklyPlanning$: Observable<any> = this.weeklyPlanning.asObservable();
+
+  constructor(
+    private http: HttpClient,
+    private loggerService: LoggerService,
+    private userService: UserService
+  ) {}
 
   setCurrentWorkingHourRange(workingHourRange: WorkingHourRange) {
     this.currentWorkingHourRange.next(workingHourRange);
@@ -37,16 +47,6 @@ export class WorkingHourRangeService {
       start_time: '',
       end_time: '',
       date: '',
-    });
-  }
-
-  // helpers
-  error(message: string, autoClose: boolean = true) {
-    this.alertService.error(message, { autoClose });
-    return throwError(() => {
-      const error: any = new Error(message);
-      error.timestamps = new Date();
-      return error;
     });
   }
 
@@ -63,7 +63,7 @@ export class WorkingHourRangeService {
         this.getList();
       })
       .catch((err) => {
-        this.error('An error occurred while saving data.');
+        this.loggerService.error('An error occurred while saving data.');
       });
   }
 
@@ -76,7 +76,7 @@ export class WorkingHourRangeService {
         this.getList();
       })
       .catch((err) => {
-        this.error('An error occurred while deleting data.');
+        this.loggerService.error('An error occurred while deleting data.');
       });
   }
 
@@ -96,7 +96,7 @@ export class WorkingHourRangeService {
         this.getList();
       })
       .catch((err) => {
-        this.error('An error occurred while saving data.');
+        this.loggerService.error('An error occurred while saving data.');
       });
   }
 
@@ -111,7 +111,87 @@ export class WorkingHourRangeService {
         this.workingHourRangeList.next(res);
       })
       .catch((err) => {
-        this.error('An error occurred while loading data.', false);
+        this.loggerService.error(
+          'An error occurred while loading data.',
+          false
+        );
+      });
+  }
+
+  async getWeeklyPlanning() {
+    let studentList: Student[] = [];
+    this.userService.getList().then((res) => {
+      studentList = res;
+    });
+    // je fais un split pour garder la premiere partie de la date au format
+    // yyyy-mm-dd
+    const todaysDate = new Date().toISOString().split('T')[0];
+    const date = new Date();
+    date.setDate(new Date().getDate() + 6);
+    const dateInSixDays = date.toISOString().split('T')[0];
+
+    await lastValueFrom(
+      this.http
+        .get<WorkingHourRange[]>(
+          `${environment.JSON_SERVER_URL}/students/1/working_hour_range?date_gte=${todaysDate}&date_lte=${dateInSixDays}&_sort=date&_order=desc`
+          // `${environment.JSON_SERVER_URL}/students/1/working_hour_range?date_gte=2022-07-05&date_lte=2022-07-12&_sort=date&_order=desc`
+        )
+        .pipe(delay(500))
+    )
+      .then((res) => {
+        const weeklyPlanning = [...Array(7)].map((_, index) => {
+          const todaysDate: Date = new Date();
+          todaysDate.setDate(todaysDate.getDate() + index);
+          
+          let studentNumber = 0;
+          const studentIdList: string[] | any = [];
+          const workingHourList: any[] = [];
+          res.forEach((workingHour) => {
+            if (workingHour.date === todaysDate.toISOString().split('T')[0]) {
+              const student = studentList.find(
+                (student) => student.id == workingHour.studentId
+              );
+              let firstname: string = '';
+              let lastname: string = '';
+              if (student) {
+                firstname = student.firstname;
+                lastname = student.lastname;
+              }
+              workingHourList.push({
+                ...workingHour,
+                firstname,
+                lastname,
+              });
+
+              studentNumber = res.reduce((previousValue, currentValue) => {
+                if (
+                  !studentIdList.includes(currentValue.studentId) &&
+                  workingHour.date === todaysDate.toISOString().split('T')[0]
+                ) {
+                  studentIdList.push(currentValue.studentId);
+                  previousValue++;
+                }
+                return previousValue;
+              }, 0);
+              studentIdList.length = 0;
+            }
+          });
+
+          const dayPlanning = {
+            date: todaysDate.toISOString().split('T')[0],
+            studentNumber,
+            workingHourList,
+          };
+          return dayPlanning;
+        });
+
+        this.weeklyPlanning.next(weeklyPlanning);
+      })
+      .catch((err) => {
+        this.loggerService.error(
+          'An error occurred while loading data.',
+          false
+        );
       });
   }
 }
