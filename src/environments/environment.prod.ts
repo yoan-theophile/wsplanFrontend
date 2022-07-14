@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BASE_URL: 'localhost:3000'
+  JSON_SERVER_URL: 'https://my-json-server.typicode.com/yoan-theophile/wsplanFrontend'
 };
