@@ -26,6 +26,7 @@ interface WeeklyPlanningFlatNode {
 })
 export class WeeklyPlanningOverviewComponent implements OnInit, OnDestroy {
   weeklyPlanning!: Subscription;
+  loading: boolean = true;
   private _transformer = (node: WeeklyPlanningNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -70,6 +71,7 @@ export class WeeklyPlanningOverviewComponent implements OnInit, OnDestroy {
               })),
             }));
           }
+          this.loading = false;
         },
       });
   }
