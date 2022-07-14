@@ -5,6 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { WeeklyPlanningOverviewComponent } from './components/weekly-planning-overview/weekly-planning-overview.component';
+import { WorkingStudentPlanningComponent } from './components/working-student-planning/working-student-planning.component';
 import { AuthGuard } from './interceptors/guard';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   },
   { path: 'add', component: EditWorkingHourComponent },
   { path: 'days', component: WeeklyPlanningOverviewComponent },
+  { path: 'students', component: WorkingStudentPlanningComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 

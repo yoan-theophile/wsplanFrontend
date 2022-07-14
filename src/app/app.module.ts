@@ -40,6 +40,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { WeeklyPlanningOverviewComponent } from './components/weekly-planning-overview/weekly-planning-overview.component';
 import {MatTreeModule} from '@angular/material/tree';
+import { WorkingStudentPlanningComponent } from './components/working-student-planning/working-student-planning.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import {MatTreeModule} from '@angular/material/tree';
     AlertComponent,
     EditWorkingHourComponent,
     WeeklyPlanningOverviewComponent,
+    WorkingStudentPlanningComponent,
   ],
   imports: [
     BrowserModule,

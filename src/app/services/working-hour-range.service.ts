@@ -32,6 +32,11 @@ export class WorkingHourRangeService {
   private weeklyPlanning: BehaviorSubject<any> = new BehaviorSubject(null);
   public weeklyPlanning$: Observable<any> = this.weeklyPlanning.asObservable();
 
+  // This subject is used to get the weekly planning
+  private studentPlanning: BehaviorSubject<any> = new BehaviorSubject(null);
+  public studentPlanning$: Observable<any> =
+    this.studentPlanning.asObservable();
+
   constructor(
     private http: HttpClient,
     private loggerService: LoggerService,
@@ -133,6 +138,7 @@ export class WorkingHourRangeService {
     await lastValueFrom(
       this.http
         .get<WorkingHourRange[]>(
+          // TODO: CORRECT THE ROUTE, IT IS NOT DIRECTLY DEPENDING ON STUDENT
           `${environment.JSON_SERVER_URL}/students/1/working_hour_range?date_gte=${todaysDate}&date_lte=${dateInSixDays}&_sort=date&_order=desc`
           // `${environment.JSON_SERVER_URL}/students/1/working_hour_range?date_gte=2022-07-05&date_lte=2022-07-12&_sort=date&_order=desc`
         )
@@ -142,7 +148,7 @@ export class WorkingHourRangeService {
         const weeklyPlanning = [...Array(7)].map((_, index) => {
           const todaysDate: Date = new Date();
           todaysDate.setDate(todaysDate.getDate() + index);
-          
+
           let studentNumber = 0;
           const studentIdList: string[] | any = [];
           const workingHourList: any[] = [];
@@ -193,5 +199,30 @@ export class WorkingHourRangeService {
           false
         );
       });
+  }
+
+  async getStudentPlanning() {
+    let studentPlanningList: any[] = [];
+    let studentList: Student[] = [];
+    this.userService.getList().then((res) => {
+      studentList = res;
+      studentList.forEach(async (student) => {
+        await lastValueFrom(
+          this.http.get<WorkingHourRange[]>(
+            `${environment.JSON_SERVER_URL}/students/${student.id}/working_hour_range?_limit=7`
+          )
+        )
+          .then((res) => {
+            studentPlanningList.push({ student: student, workingHourList: res });
+            this.studentPlanning.next(studentPlanningList);
+          })
+          .catch((err) => {
+            this.loggerService.error(
+              'An error occurred while loading data.',
+              false
+            );
+          });
+      });
+    });
   }
 }

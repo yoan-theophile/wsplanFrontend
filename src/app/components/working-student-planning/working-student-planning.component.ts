@@ -20,12 +20,15 @@ interface WeeklyPlanningFlatNode {
 }
 
 @Component({
-  selector: 'app-weekly-planning-overview',
-  templateUrl: './weekly-planning-overview.component.html',
-  styleUrls: ['./weekly-planning-overview.component.scss'],
+  selector: 'app-working-student-planning',
+  templateUrl: './working-student-planning.component.html',
+  styleUrls: ['./working-student-planning.component.scss'],
 })
-export class WeeklyPlanningOverviewComponent implements OnInit, OnDestroy {
-  weeklyPlanning!: Subscription;
+export class WorkingStudentPlanningComponent implements OnInit, OnDestroy {
+  studentPlanning!: Subscription;
+  loading: boolean = true;
+
+
   private _transformer = (node: WeeklyPlanningNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -55,27 +58,29 @@ export class WeeklyPlanningOverviewComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: WeeklyPlanningFlatNode) => node.expandable;
 
   ngOnInit(): void {
-    this.workingHourRangeService.getWeeklyPlanning();
-    this.weeklyPlanning =
-      this.workingHourRangeService.weeklyPlanning$.subscribe({
+    this.workingHourRangeService.getStudentPlanning();
+    this.studentPlanning =
+      this.workingHourRangeService.studentPlanning$.subscribe({
         next: (data) => {
+          console.log('data', data);
           if (Array.isArray(data)) {
             this.dataSource.data = data.map((element) => ({
-              name: `${new Date(element.date).toDateString()} (${
-                element.studentNumber
-              } students)`,
+              name: `View: ${element.student.firstname} ${element.student.lastname}`,
               children: element.workingHourList.map((workingHour: any) => ({
-                name: `${workingHour.firstname} ${workingHour.lastname} from ${workingHour.start_time} to ${workingHour.end_time}`,
+                name: `${new Date(workingHour.date).toDateString()} from ${
+                  workingHour.start_time
+                } to ${workingHour.end_time}`,
                 children: [],
               })),
             }));
           }
+          this.loading = false;
         },
       });
   }
   ngOnDestroy(): void {
-    if (this.weeklyPlanning != null) {
-      this.weeklyPlanning.unsubscribe();
+    if (this.studentPlanning != null) {
+      this.studentPlanning.unsubscribe();
     }
   }
 }
