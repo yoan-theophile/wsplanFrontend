@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
 import { WorkingHourRangeService } from 'src/app/services/working-hour-range.service';
 import { WorkingHourRange } from '../../../model';
@@ -9,10 +10,11 @@ import { WorkingHourRange } from '../../../model';
   templateUrl: './edit-working-hour-form.component.html',
   styleUrls: ['./edit-working-hour-form.component.scss'],
 })
-export class EditWorkingHourFormComponent implements OnInit {
+export class EditWorkingHourFormComponent implements OnInit, OnDestroy {
   editWorkingHourForm!: FormGroup;
   loading: boolean = false;
   currentWorkingHourRange!: WorkingHourRange;
+  currentWorkingHourRangeSubscriber!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -21,13 +23,14 @@ export class EditWorkingHourFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.workingHourRangeService.currentWorkingHourRange$.subscribe({
-      next: (data: WorkingHourRange) => {
-        this.currentWorkingHourRange = data;
-        if (this.editWorkingHourForm)
-          this.editWorkingHourForm.patchValue(this.currentWorkingHourRange);
-      },
-    });
+    this.currentWorkingHourRangeSubscriber =
+      this.workingHourRangeService.currentWorkingHourRange$.subscribe({
+        next: (data: WorkingHourRange) => {
+          this.currentWorkingHourRange = data;
+          if (this.editWorkingHourForm)
+            this.editWorkingHourForm.patchValue(this.currentWorkingHourRange);
+        },
+      });
 
     this.editWorkingHourForm = this.formBuilder.group({
       date: [this.currentWorkingHourRange.date, Validators.required],
@@ -37,6 +40,12 @@ export class EditWorkingHourFormComponent implements OnInit {
       ],
       end_time: [this.currentWorkingHourRange.end_time, Validators.required],
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.currentWorkingHourRangeSubscriber != null) {
+      this.currentWorkingHourRangeSubscriber.unsubscribe();
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -69,9 +78,9 @@ export class EditWorkingHourFormComponent implements OnInit {
           this.workingHourRangeService.setDefaultCurrentWorkingHourRange();
 
           //  resetting the error state for each form control
-          Object.keys(this.editWorkingHourForm.controls).forEach(key =>{
-            this.editWorkingHourForm.controls[key].setErrors(null)
-         });
+          Object.keys(this.editWorkingHourForm.controls).forEach((key) => {
+            this.editWorkingHourForm.controls[key].setErrors(null);
+          });
         });
     } else {
       this.workingHourRangeService
@@ -87,5 +96,4 @@ export class EditWorkingHourFormComponent implements OnInit {
         });
     }
   }
-
 }

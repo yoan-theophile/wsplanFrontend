@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { async } from '@angular/core/testing';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, tap } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { User, WorkingHourRange } from 'src/app/model';
 import { WorkingHourRangeService } from 'src/app/services/working-hour-range.service';
@@ -14,10 +14,13 @@ import { WorkingHourRangeService } from 'src/app/services/working-hour-range.ser
   templateUrl: './planning-table-overview.component.html',
   styleUrls: ['./planning-table-overview.component.scss'],
 })
-export class PlanningTableOverviewComponent implements AfterViewInit {
+export class PlanningTableOverviewComponent
+  implements AfterViewInit, OnDestroy
+{
   displayedColumns: string[] = ['date', 'start_time', 'end_time', 'action'];
   dataSource: MatTableDataSource<WorkingHourRange> = new MatTableDataSource();
   workingHourRangeList!: WorkingHourRange[];
+  workingHourRangeListSubscriber!: Subscription;
   loading: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -30,6 +33,12 @@ export class PlanningTableOverviewComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  ngOnDestroy(): void {
+    if (this.workingHourRangeListSubscriber != null) {
+      this.workingHourRangeListSubscriber.unsubscribe();
+    }
   }
 
   applyFilter(event: Event) {
@@ -45,25 +54,26 @@ export class PlanningTableOverviewComponent implements AfterViewInit {
     this.loading = true;
     this.workingHourRangeService.getList();
 
-    this.workingHourRangeService.workingHourRangeList$.subscribe({
-      next: (data) => {
-        if (!data) return;
-        this.workingHourRangeList = data;
+    this.workingHourRangeListSubscriber =
+      this.workingHourRangeService.workingHourRangeList$.subscribe({
+        next: (data) => {
+          if (!data) return;
+          this.workingHourRangeList = data;
 
-        // Assign the data to the data source for the table to render
-        this.dataSource = new MatTableDataSource(this.workingHourRangeList);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+          // Assign the data to the data source for the table to render
+          this.dataSource = new MatTableDataSource(this.workingHourRangeList);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
 
-        this.loading = false;
-      },
-      error: (err) => {
-        console.log(
-          '📜 ~ file: planning-table-overview.component.ts ~ PlanningTableOverviewComponent ~ getWorkingHourRangeList ~ err',
-          err
-        );
-      },
-    });
+          this.loading = false;
+        },
+        error: (err) => {
+          console.log(
+            '📜 ~ file: planning-table-overview.component.ts ~ PlanningTableOverviewComponent ~ getWorkingHourRangeList ~ err',
+            err
+          );
+        },
+      });
   }
 
   onDelete(id: number) {
