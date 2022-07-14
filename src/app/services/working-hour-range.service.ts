@@ -5,6 +5,7 @@ import { delay, first } from 'rxjs/operators';
 import { environment as env, environment } from 'src/environments/environment';
 import { User, WorkingHourRange } from '../model';
 import { AlertService } from './alert.service';
+import { AuthenticationService } from './authentication.service';
 import { LoggerService } from './logger.service';
 import { UserService } from './user.service';
 
@@ -40,7 +41,8 @@ export class WorkingHourRangeService {
   constructor(
     private http: HttpClient,
     private loggerService: LoggerService,
-    private userService: UserService
+    private userService: UserService,
+    private authenticationService: AuthenticationService
   ) {}
 
   setCurrentWorkingHourRange(workingHourRange: WorkingHourRange) {
@@ -57,12 +59,10 @@ export class WorkingHourRangeService {
 
   async put(data: WorkingHourRange) {
     await lastValueFrom(
-      this.http
-        .put<WorkingHourRange>(
-          `${environment.JSON_SERVER_URL}/working_hour_range/${data.id}`,
-          data
-        )
-        .pipe(delay(500))
+      this.http.put<WorkingHourRange>(
+        `${environment.JSON_SERVER_URL}/working_hour_range/${data.id}`,
+        data
+      )
     )
       .then(() => {
         this.getList();
@@ -86,17 +86,17 @@ export class WorkingHourRangeService {
   }
 
   async add(date: string, start_time: string, end_time: string) {
-    const whr$ = await this.http
-      .post<WorkingHourRange>(
-        `${environment.JSON_SERVER_URL}/students/1/working_hour_range`,
+    const studentId = this.authenticationService.currentUserValue.id || 1; // au cas ou l’élève n'es pas encore connecte
+    await lastValueFrom(
+      this.http.post<WorkingHourRange>(
+        `${environment.JSON_SERVER_URL}/students/${studentId}/working_hour_range`,
         {
           date,
           start_time,
           end_time,
         }
       )
-      .pipe(delay(500));
-    await lastValueFrom(whr$)
+    )
       .then(() => {
         this.getList();
       })
@@ -106,12 +106,12 @@ export class WorkingHourRangeService {
   }
 
   async getList() {
-    const whr$ = await this.http
-      .get<WorkingHourRange[]>(
-        `${environment.JSON_SERVER_URL}/students/1/working_hour_range?_limit=7&_sort=id&_order=desc`
+    const studentId = this.authenticationService.currentUserValue.id || 1; // au cas ou l’élève n'es pas encore connecte
+    await lastValueFrom(
+      this.http.get<WorkingHourRange[]>(
+        `${environment.JSON_SERVER_URL}/students/${studentId}/working_hour_range?_limit=7&_sort=id&_order=desc`
       )
-      .pipe(delay(500));
-    await lastValueFrom(whr$)
+    )
       .then((res) => {
         this.workingHourRangeList.next(res);
       })
@@ -192,10 +192,7 @@ export class WorkingHourRangeService {
         this.weeklyPlanning.next(weeklyPlanning);
       })
       .catch((err) => {
-        this.loggerService.error(
-          'An error occurred while loading data.',
-          false
-        );
+        this.loggerService.error('An error occurred while loading data.', true);
       });
   }
 
@@ -220,7 +217,7 @@ export class WorkingHourRangeService {
           .catch((err) => {
             this.loggerService.error(
               'An error occurred while loading data.',
-              false
+              true
             );
           });
       });

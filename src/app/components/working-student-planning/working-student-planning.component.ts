@@ -64,7 +64,7 @@ export class WorkingStudentPlanningComponent implements OnInit, OnDestroy {
         next: (data) => {
           if (Array.isArray(data)) {
             this.dataSource.data = data.map((element) => ({
-              name: `View: ${element.student.firstname || ''} ${element.student.lastname || ''}`,
+              name: `View: ${element.student.firstName || ''} ${element.student.lastName || ''}`,
               children: element.workingHourList.map((workingHour: any) => ({
                 name: `${new Date(workingHour.date).toDateString()} from ${
                   workingHour.start_time || ''

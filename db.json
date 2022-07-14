@@ -2,34 +2,10 @@
   "students": [
     {
       "id": 1,
-      "firstname": "Theo",
-      "lastname": "Pierre",
+      "firstName": "Theo",
+      "lastName": "Pierre",
       "sex": "male",
       "class": "IRT3"
-    },
-    {
-      "role": 0,
-      "email": "email@email.com",
-      "password": "email@email.com",
-      "token": "fake-jwt-token",
-      "firstName": "f",
-      "lastLog": "2022-07-14",
-      "lastName": "l",
-      "sex": "s",
-      "class": "c",
-      "id": 2
-    },
-    {
-      "role": 0,
-      "email": "email@email.comm",
-      "password": "email@email.comm",
-      "token": "fake-jwt-token",
-      "firstName": "f",
-      "lastLog": "2022-07-14",
-      "lastName": "l",
-      "sex": "s",
-      "class": "c",
-      "id": 3
     }
   ],
   "users": [

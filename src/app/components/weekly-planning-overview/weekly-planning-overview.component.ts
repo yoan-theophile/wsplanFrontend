@@ -66,7 +66,7 @@ export class WeeklyPlanningOverviewComponent implements OnInit, OnDestroy {
                 element.studentNumber || 0
               } students)`,
               children: element.workingHourList.map((workingHour: any) => ({
-                name: `${workingHour.firstname || ''} ${workingHour.lastname || ''} from ${workingHour.start_time || ''} to ${workingHour.end_time || ''}`,
+                name: `${workingHour.firstName || ''} ${workingHour.lastName || ''} from ${workingHour.start_time || ''} to ${workingHour.end_time || ''}`,
                 children: [],
               })),
             }));

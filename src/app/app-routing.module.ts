@@ -12,8 +12,8 @@ const routes: Routes = [
   // TODO: ADD AUTH GUARD TO THE HOME COMPONENT
   {
     path: '',
-    component: HomeComponent,
-    // , canActivate: [AuthGuard]
+    redirectTo: 'planning',
+    pathMatch: 'full'
   },
   {
     path: 'planning',
