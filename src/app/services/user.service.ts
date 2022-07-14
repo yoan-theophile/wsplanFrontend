@@ -44,7 +44,6 @@ export class UserService {
           await lastValueFrom(
             this.http
               .post<User>(`${environment.JSON_SERVER_URL}/students`, user)
-              .pipe(delay(500))
           )
             .then(() => {
               this.alertService.success('Successful registration', {

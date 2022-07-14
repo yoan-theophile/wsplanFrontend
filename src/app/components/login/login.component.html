@@ -23,6 +23,7 @@
             <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid || loading">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1" role="status"
                     aria-hidden="true"></span>Login</button>
+            <a mat-button routerLink="/register">Register</a>
         </form>
     </mat-card-content>
 </mat-card>

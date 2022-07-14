@@ -46,7 +46,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-
     // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
@@ -54,23 +53,27 @@ export class RegisterComponent implements OnInit {
 
     this.loading = true;
 
-    this.userService.register(
-      new User({
-        role: UserRoleType.Student,
-        email: this.f['email'].value,
-        password: this.f['password'].value,
-        token: 'fake-jwt-token',
-        firstName: this.f['firstName'].value,
-        lastLog: new Date().toISOString().split('T')[0],
-        lastName: this.f['lastName'].value,
-        sex: this.f['sex'].value,
-        class: this.f['class'].value,
+    this.userService
+      .register(
+        new User({
+          role: UserRoleType.Student,
+          email: this.f['email'].value,
+          password: this.f['password'].value,
+          token: 'fake-jwt-token',
+          firstName: this.f['firstName'].value,
+          lastLog: new Date().toISOString().split('T')[0],
+          lastName: this.f['lastName'].value,
+          sex: this.f['sex'].value,
+          class: this.f['class'].value,
+        })
+      )
+      .then((val) => {
+        this.loading = false;
+        this.router.navigateByUrl('/planning/login');
       })
-    ).then((val) => {
-      this.loading = false;
-    }).catch((err) => {
-      console.log(err);
-      this.loading = false;
-    });
+      .catch((err) => {
+        console.log(err);
+        this.loading = false;
+      });
   }
 }
