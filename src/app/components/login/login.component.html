@@ -20,7 +20,7 @@
                     Password is <strong>required</strong>
                 </mat-error>
             </mat-form-field>
-            <button mat-raised-button type="submit" color="primary" [disabled]="!loginForm.valid">
+            <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid || loading">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1" role="status"
                     aria-hidden="true"></span>Login</button>
         </form>

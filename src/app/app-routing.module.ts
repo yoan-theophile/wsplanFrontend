@@ -22,6 +22,8 @@ const routes: Routes = [
         path: '',
         component: WorkingStudentPlanningComponent,
         pathMatch: 'full',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
       },
       { path: 'add', component: EditWorkingHourComponent },
       { path: 'days', component: WeeklyPlanningOverviewComponent },

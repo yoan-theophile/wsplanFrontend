@@ -8,15 +8,14 @@
             Login
         </a>
         <ng-template #connected>
-
-            <a mat-button class="toolbar-link" routerLink="#" routerLinkActive="active">
+            <button mat-button class="toolbar-link">
                 <mat-icon>person_pin</mat-icon>
-                {{name}}({{class}})
-            </a>
-            <a mat-button class="toolbar-link" routerLink="#" routerLinkActive="active">
+                <span class="profil">{{name}}({{class}})</span>
+            </button>
+            <button mat-button class="toolbar-link" (click)="onLogout()">
                 <mat-icon>directions_walk</mat-icon>
                 Logout
-            </a>
+            </button>
         </ng-template>
     </mat-toolbar-row>
     <mat-toolbar-row>

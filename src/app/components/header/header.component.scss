@@ -15,3 +15,23 @@
 mat-toolbar-row {
   height: 48px;
 }
+
+@media (max-width: 425px) {
+  mat-toolbar-row {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .mat-button,
+  .mat-icon-button,
+  .mat-stroked-button,
+  .mat-flat-button {
+    padding: 0 8px;
+  }
+
+  .profil {
+    max-width: 14ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
