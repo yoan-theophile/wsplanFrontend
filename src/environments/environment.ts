@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  JSON_SERVER_URL: 'http://localhost:3000',
+  JSON_SERVER_URL: 'https://my-json-server.typicode.com/yoan-theophile/wsplanFrontend',
   API_URL: ''
 };
 
