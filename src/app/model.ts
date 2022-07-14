@@ -3,19 +3,11 @@ export interface WorkingHourRange {
   start_time: string;
   end_time: string;
   date: string;
-  studentId?: string;
-}
-
-export interface Student {
-  id?: number;
-  firstname: string;
-  lastname: string;
-  sex: string;
-  class: string;
+  studentId?: number;
 }
 
 export interface APIResponse<T> {
-    results: Array<T>
+  results: Array<T>;
 }
 
 export class Alert {
@@ -26,8 +18,8 @@ export class Alert {
   keepAfterRouteChange?: boolean;
   fade?: boolean;
 
-  constructor(init?:Partial<Alert>) {
-      Object.assign(this, init);
+  constructor(init?: Partial<Alert>) {
+    Object.assign(this, init);
   }
 }
 
@@ -35,7 +27,7 @@ export enum AlertType {
   Success,
   Error,
   Info,
-  Warning
+  Warning,
 }
 
 export class User {
@@ -46,4 +38,16 @@ export class User {
   firstName!: string;
   lastName!: string;
   token!: string;
+  sex!: string;
+  lastLog!: string;
+  role!: UserRoleType;
+
+  constructor(init?: Partial<User>) {
+    Object.assign(this, init);
+  }
+}
+
+export enum UserRoleType {
+  Student,
+  Manager,
 }

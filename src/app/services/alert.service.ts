@@ -20,6 +20,9 @@ export class AlertService {
   alert(alert: Alert) {
     alert.id = alert.id || this.defaultId;
     this.subject.next(alert);
+    // document.querySelector('html, body')?.animate({scrollTop: 0}, 10);
+    // $('html, body').animate({ scrollTop: 0 }, 'fast');
+    document.querySelector('html,body')?.scroll(0,0);
   }
 
   // convenience methods

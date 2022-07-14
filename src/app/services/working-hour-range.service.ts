@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, lastValueFrom, Observable, throwError } from 'rxjs';
 import { delay, first } from 'rxjs/operators';
 import { environment as env, environment } from 'src/environments/environment';
-import { Student, WorkingHourRange } from '../model';
+import { User, WorkingHourRange } from '../model';
 import { AlertService } from './alert.service';
 import { LoggerService } from './logger.service';
 import { UserService } from './user.service';
@@ -124,7 +124,7 @@ export class WorkingHourRangeService {
   }
 
   async getWeeklyPlanning() {
-    let studentList: Student[] = [];
+    let studentList: User[] = [];
     this.userService.getList().then((res) => {
       studentList = res;
     });
@@ -155,16 +155,16 @@ export class WorkingHourRangeService {
               const student = studentList.find(
                 (student) => student.id == workingHour.studentId
               );
-              let firstname: string = '';
-              let lastname: string = '';
+              let firstName: string = '';
+              let lastName: string = '';
               if (student) {
-                firstname = student.firstname;
-                lastname = student.lastname;
+                firstName = student.firstName;
+                lastName = student.lastName;
               }
               workingHourList.push({
                 ...workingHour,
-                firstname,
-                lastname,
+                firstName: firstName,
+                lastName: lastName,
               });
 
               studentNumber = res.reduce((previousValue, currentValue) => {
@@ -201,7 +201,7 @@ export class WorkingHourRangeService {
 
   async getStudentPlanning() {
     let studentPlanningList: any[] = [];
-    let studentList: Student[] = [];
+    let studentList: User[] = [];
     this.userService.getList().then((res) => {
       studentList = res;
       studentList.forEach(async (student) => {
