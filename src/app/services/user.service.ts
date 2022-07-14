@@ -12,14 +12,6 @@ import { LoggerService } from './logger.service';
 export class UserService {
   constructor(private http: HttpClient, private alertService: AlertService) {}
 
-  getAll() {
-    return this.http.get<User[]>(`${environment.API_URL}/users`);
-  }
-
-  delete(id: number) {
-    return this.http.delete(`${environment.API_URL}/users/${id}`);
-  }
-
   async getList() {
     let studentList: User[] = [];
     await lastValueFrom(

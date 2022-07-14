@@ -8,32 +8,7 @@
       "class": "IRT3"
     }
   ],
-  "users": [
-    {
-      "firstName": "f",
-      "lastName": "l",
-      "email": "email@email.com",
-      "password": "email@email.com",
-      "id": 1
-    }
-  ],
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  },
+  "users": [],
   "working_hour_range": [
     {
       "id": 1,
