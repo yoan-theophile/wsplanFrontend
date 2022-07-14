@@ -93,12 +93,12 @@ import { WorkingStudentPlanningComponent } from './components/working-student-pl
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: JwtInterceptor,
+      useClass: HttpErrorsInterceptor,
       multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpErrorsInterceptor,
+      useClass: JwtInterceptor,
       multi: true,
     },
     // {

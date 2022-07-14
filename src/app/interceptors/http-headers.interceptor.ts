@@ -19,9 +19,9 @@ export class HttpHeaderInterceptor implements HttpInterceptor {
     // * authentifier le consommer de l'API
     const headers = request.headers
       .set('Content-Type', 'application/json')
-      // .set('Access-Control-Allow-Origin', '*')
-      // .set('Access-Control-Allow-Headers', 'Content-Type')
-      // .set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Access-Control-Allow-Headers', 'Content-Type')
+      .set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
 
     const req = request.clone({ headers });
     return next.handle(req);

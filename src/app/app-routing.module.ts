@@ -17,17 +17,29 @@ const routes: Routes = [
   },
   {
     path: 'planning',
+    // canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
         component: WorkingStudentPlanningComponent,
         pathMatch: 'full',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
+        // canActivate: [AuthGuard],
       },
-      { path: 'add', component: EditWorkingHourComponent },
-      { path: 'days', component: WeeklyPlanningOverviewComponent },
-      { path: 'students', component: WorkingStudentPlanningComponent },
+      {
+        path: 'add',
+        component: EditWorkingHourComponent,
+        // canActivate: [AuthGuard],
+      },
+      {
+        path: 'days',
+        component: WeeklyPlanningOverviewComponent,
+        // canActivate: [AuthGuard],
+      },
+      {
+        path: 'students',
+        component: WorkingStudentPlanningComponent,
+        // canActivate: [AuthGuard],
+      },
       { path: 'login', component: LoginComponent },
     ],
   },
