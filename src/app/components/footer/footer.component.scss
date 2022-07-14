@@ -5,8 +5,13 @@
     justify-content: center;
 }
 
-p {
+p, span {
     margin: 0;
+    font-size: 11px;
+}
+
+span {
+    margin-left: 8px;
 }
 
 .mat-toolbar {
@@ -15,10 +20,5 @@ p {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-}
-
-@media (max-width: 599px){
-    mat-toolbar{
-        height: 124px;
-    }
+    height: 48px;
 }

@@ -12,13 +12,23 @@ const routes: Routes = [
   // TODO: ADD AUTH GUARD TO THE HOME COMPONENT
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
     // , canActivate: [AuthGuard]
   },
-  { path: 'add', component: EditWorkingHourComponent },
-  { path: 'days', component: WeeklyPlanningOverviewComponent },
-  { path: 'students', component: WorkingStudentPlanningComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'planning',
+    children: [
+      {
+        path: '',
+        component: WorkingStudentPlanningComponent,
+        pathMatch: 'full',
+      },
+      { path: 'add', component: EditWorkingHourComponent },
+      { path: 'days', component: WeeklyPlanningOverviewComponent },
+      { path: 'students', component: WorkingStudentPlanningComponent },
+      { path: 'login', component: LoginComponent },
+    ],
+  },
   { path: 'register', component: RegisterComponent },
 
   // otherwise redirect to home

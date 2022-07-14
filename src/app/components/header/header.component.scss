@@ -4,11 +4,14 @@
 
 .toolbar-link {
   color: rgba($color: #ffffff, $alpha: 0.8);
-//   border-width: 0;
   &:hover {
     color: rgba($color: #ffffff, $alpha: 1);
   }
   &.active {
     color: rgba($color: #ffffff, $alpha: 1);
   }
+}
+
+mat-toolbar-row {
+  height: 48px;
 }
