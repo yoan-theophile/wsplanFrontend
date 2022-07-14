@@ -63,10 +63,10 @@ export class WeeklyPlanningOverviewComponent implements OnInit, OnDestroy {
           if (Array.isArray(data)) {
             this.dataSource.data = data.map((element) => ({
               name: `${new Date(element.date).toDateString()} (${
-                element.studentNumber
+                element.studentNumber || 0
               } students)`,
               children: element.workingHourList.map((workingHour: any) => ({
-                name: `${workingHour.firstname} ${workingHour.lastname} from ${workingHour.start_time} to ${workingHour.end_time}`,
+                name: `${workingHour.firstname || ''} ${workingHour.lastname || ''} from ${workingHour.start_time || ''} to ${workingHour.end_time || ''}`,
                 children: [],
               })),
             }));

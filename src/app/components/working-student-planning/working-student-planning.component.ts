@@ -62,14 +62,13 @@ export class WorkingStudentPlanningComponent implements OnInit, OnDestroy {
     this.studentPlanning =
       this.workingHourRangeService.studentPlanning$.subscribe({
         next: (data) => {
-          console.log('data', data);
           if (Array.isArray(data)) {
             this.dataSource.data = data.map((element) => ({
-              name: `View: ${element.student.firstname} ${element.student.lastname}`,
+              name: `View: ${element.student.firstname || ''} ${element.student.lastname || ''}`,
               children: element.workingHourList.map((workingHour: any) => ({
                 name: `${new Date(workingHour.date).toDateString()} from ${
-                  workingHour.start_time
-                } to ${workingHour.end_time}`,
+                  workingHour.start_time || ''
+                } to ${workingHour.end_time || ''}`,
                 children: [],
               })),
             }));
