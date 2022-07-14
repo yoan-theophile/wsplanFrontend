@@ -125,7 +125,7 @@ export class WorkingHourRangeService {
 
   async getWeeklyPlanning() {
     let studentList: User[] = [];
-    this.userService.getList().then((res) => {
+    await this.userService.getList().then((res) => {
       studentList = res;
     });
     // je fais un split pour garder la premiere partie de la date au format
@@ -136,11 +136,9 @@ export class WorkingHourRangeService {
     const dateInSixDays = date.toISOString().split('T')[0];
 
     await lastValueFrom(
-      this.http
-        .get<WorkingHourRange[]>(
-          `${environment.JSON_SERVER_URL}/working_hour_range?date_gte=${todaysDate}&date_lte=${dateInSixDays}&_sort=date&_order=desc`
-        )
-        .pipe(delay(500))
+      this.http.get<WorkingHourRange[]>(
+        `${environment.JSON_SERVER_URL}/working_hour_range?date_gte=${todaysDate}&date_lte=${dateInSixDays}&_sort=date&_order=desc`
+      )
     )
       .then((res) => {
         const weeklyPlanning = [...Array(7)].map((_, index) => {
@@ -153,9 +151,10 @@ export class WorkingHourRangeService {
           res.forEach((workingHour) => {
             if (workingHour.date === todaysDate.toISOString().split('T')[0]) {
               const student = studentList.find(
-                (student) => student.id == workingHour.studentId
+                (student) =>
+                  student.id.toString() === workingHour.studentId?.toString()
               );
-              let firstName: string = '';
+              let firstName: string = 'Student';
               let lastName: string = '';
               if (student) {
                 firstName = student.firstName;
