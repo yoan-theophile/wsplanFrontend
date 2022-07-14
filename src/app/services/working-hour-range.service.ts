@@ -86,7 +86,7 @@ export class WorkingHourRangeService {
   }
 
   async add(date: string, start_time: string, end_time: string) {
-    const studentId = this.authenticationService.currentUserValue.id || 1; // au cas ou l’élève n'es pas encore connecte
+    const studentId = this.authenticationService.currentUserValue.id || 0; // au cas ou l’élève n'es pas encore connecte
     await lastValueFrom(
       this.http.post<WorkingHourRange>(
         `${environment.JSON_SERVER_URL}/students/${studentId}/working_hour_range`,
@@ -106,7 +106,7 @@ export class WorkingHourRangeService {
   }
 
   async getList() {
-    const studentId = this.authenticationService.currentUserValue.id || 1; // au cas ou l’élève n'es pas encore connecte
+    const studentId = this.authenticationService.currentUserValue.id || 0; // au cas ou l’élève n'es pas encore connecte
     await lastValueFrom(
       this.http.get<WorkingHourRange[]>(
         `${environment.JSON_SERVER_URL}/students/${studentId}/working_hour_range?_limit=7&_sort=id&_order=desc`
