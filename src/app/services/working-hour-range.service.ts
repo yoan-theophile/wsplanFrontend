@@ -138,9 +138,7 @@ export class WorkingHourRangeService {
     await lastValueFrom(
       this.http
         .get<WorkingHourRange[]>(
-          // TODO: CORRECT THE ROUTE, IT IS NOT DIRECTLY DEPENDING ON STUDENT
-          `${environment.JSON_SERVER_URL}/students/1/working_hour_range?date_gte=${todaysDate}&date_lte=${dateInSixDays}&_sort=date&_order=desc`
-          // `${environment.JSON_SERVER_URL}/students/1/working_hour_range?date_gte=2022-07-05&date_lte=2022-07-12&_sort=date&_order=desc`
+          `${environment.JSON_SERVER_URL}/working_hour_range?date_gte=${todaysDate}&date_lte=${dateInSixDays}&_sort=date&_order=desc`
         )
         .pipe(delay(500))
     )
@@ -213,7 +211,10 @@ export class WorkingHourRangeService {
           )
         )
           .then((res) => {
-            studentPlanningList.push({ student: student, workingHourList: res });
+            studentPlanningList.push({
+              student: student,
+              workingHourList: res,
+            });
             this.studentPlanning.next(studentPlanningList);
           })
           .catch((err) => {
