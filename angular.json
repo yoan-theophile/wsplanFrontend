@@ -23,7 +23,6 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "baseHref": "https://github.com/yoan-theophile/wsplanFrontend",
             "assets": [
               "src/favicon.ico",
               "src/assets"
