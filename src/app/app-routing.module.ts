@@ -21,7 +21,8 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: WorkingStudentPlanningComponent,
+        // component: WorkingStudentPlanningComponent,
+        redirectTo: '/planning/students',
         pathMatch: 'full',
         // canActivate: [AuthGuard],
       },
