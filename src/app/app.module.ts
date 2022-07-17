@@ -34,14 +34,18 @@ import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { FakeBackendInterceptor } from './interceptors/fake-backend.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { EditWorkingHourComponent } from './components/edit-working-hour/edit-working-hour.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { WeeklyPlanningOverviewComponent } from './components/weekly-planning-overview/weekly-planning-overview.component';
-import {MatTreeModule} from '@angular/material/tree';
+import { MatTreeModule } from '@angular/material/tree';
 import { WorkingStudentPlanningComponent } from './components/working-student-planning/working-student-planning.component';
-
+import { AuthGuard } from './interceptors/guard';
+import { AlertService } from './services/alert.service';
+import { AuthenticationService } from './services/authentication.service';
+import { LoggerService } from './services/logger.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -83,7 +87,7 @@ import { WorkingStudentPlanningComponent } from './components/working-student-pl
     MatListModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatTreeModule
+    MatTreeModule,
   ],
   providers: [
     {
@@ -101,6 +105,12 @@ import { WorkingStudentPlanningComponent } from './components/working-student-pl
       useClass: JwtInterceptor,
       multi: true,
     },
+    AuthGuard,
+    AlertService,
+    AuthenticationService,
+    LoggerService,
+    UserService,
+    WorkingStudentPlanningComponent,
     // {
     //   // use fake backend in place of Http service for backend-less development
     //   provide: HTTP_INTERCEPTORS,

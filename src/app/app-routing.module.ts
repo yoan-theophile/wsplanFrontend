@@ -13,10 +13,11 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'planning',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'planning',
+    canActivateChild: [AuthGuard],
     // canActivateChild: [AuthGuard],
     children: [
       {
@@ -24,7 +25,6 @@ const routes: Routes = [
         // component: WorkingStudentPlanningComponent,
         redirectTo: '/planning/students',
         pathMatch: 'full',
-        // canActivate: [AuthGuard],
       },
       {
         path: 'add',
@@ -41,9 +41,10 @@ const routes: Routes = [
         component: WorkingStudentPlanningComponent,
         // canActivate: [AuthGuard],
       },
-      { path: 'login', component: LoginComponent },
     ],
   },
+  { path: 'planning/login', component: LoginComponent },
+
   { path: 'register', component: RegisterComponent },
 
   // otherwise redirect to home
