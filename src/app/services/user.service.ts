@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User, UserRoleType } from '../model';
+import { User } from '../model';
 import { AlertService } from './alert.service';
-import { LoggerService } from './logger.service';
 
 @Injectable({
   providedIn: 'root',

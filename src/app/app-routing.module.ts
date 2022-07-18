@@ -9,7 +9,6 @@ import { WorkingStudentPlanningComponent } from './components/working-student-pl
 import { AuthGuard } from './interceptors/guard';
 
 const routes: Routes = [
-  // TODO: ADD AUTH GUARD TO THE HOME COMPONENT
   {
     path: '',
     redirectTo: 'planning',
@@ -18,28 +17,23 @@ const routes: Routes = [
   {
     path: 'planning',
     canActivateChild: [AuthGuard],
-    // canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
-        // component: WorkingStudentPlanningComponent,
         redirectTo: '/planning/students',
         pathMatch: 'full',
       },
       {
         path: 'add',
         component: EditWorkingHourComponent,
-        // canActivate: [AuthGuard],
       },
       {
         path: 'days',
         component: WeeklyPlanningOverviewComponent,
-        // canActivate: [AuthGuard],
       },
       {
         path: 'students',
         component: WorkingStudentPlanningComponent,
-        // canActivate: [AuthGuard],
       },
     ],
   },

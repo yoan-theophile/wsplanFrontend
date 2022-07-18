@@ -24,6 +24,10 @@ export class AuthenticationService {
     this.currentUser$ = this.currentUserSubject.asObservable();
   }
 
+  public isAuthenticate() {
+    return JSON.stringify(this.currentUserValue) != '{}';
+  }
+
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
@@ -33,11 +37,9 @@ export class AuthenticationService {
     this.alertService.clear();
 
     await lastValueFrom(
-      this.http
-        .get<User[]>(
-          `${environment.JSON_SERVER_URL}/students?email=${email}&password=${password}`
-        )
-        .pipe(delay(500))
+      this.http.get<User[]>(
+        `${environment.JSON_SERVER_URL}/students?email=${email}&password=${password}`
+      )
     )
       .then((user) => {
         if (user.length > 0) {
