@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, lastValueFrom, Observable, throwError } from 'rxjs';
-import { delay, first } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 import { environment as env, environment } from 'src/environments/environment';
 import { User, WorkingHourRange } from '../model';
-import { AlertService } from './alert.service';
 import { AuthenticationService } from './authentication.service';
 import { LoggerService } from './logger.service';
 import { UserService } from './user.service';
@@ -73,10 +72,11 @@ export class WorkingHourRangeService {
   }
 
   async delete(id: number) {
-    const whr$ = await this.http
-      .delete<any>(`${environment.JSON_SERVER_URL}/working_hour_range/${id}`)
-      .pipe(delay(500));
-    await lastValueFrom(whr$)
+    await lastValueFrom(
+      this.http.delete<any>(
+        `${environment.JSON_SERVER_URL}/working_hour_range/${id}`
+      )
+    )
       .then(() => {
         this.getList();
       })
