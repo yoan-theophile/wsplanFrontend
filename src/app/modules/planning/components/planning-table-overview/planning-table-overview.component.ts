@@ -52,28 +52,28 @@ export class PlanningTableOverviewComponent
 
   getWorkingHourRangeList() {
     this.loading = true;
-    this.workingHourRangeService.getList();
+    this.workingHourRangeService.getList().then(() => {
+      this.workingHourRangeListSubscriber =
+        this.workingHourRangeService.workingHourRangeList$.subscribe({
+          next: (data) => {
+            if (!data) return;
+            this.workingHourRangeList = data;
 
-    this.workingHourRangeListSubscriber =
-      this.workingHourRangeService.workingHourRangeList$.subscribe({
-        next: (data) => {
-          if (!data) return;
-          this.workingHourRangeList = data;
+            // Assign the data to the data source for the table to render
+            this.dataSource = new MatTableDataSource(this.workingHourRangeList);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
 
-          // Assign the data to the data source for the table to render
-          this.dataSource = new MatTableDataSource(this.workingHourRangeList);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-
-          this.loading = false;
-        },
-        error: (err) => {
-          console.log(
-            '📜 ~ file: planning-table-overview.component.ts ~ PlanningTableOverviewComponent ~ getWorkingHourRangeList ~ err',
-            err
-          );
-        },
-      });
+            this.loading = false;
+          },
+          error: (err) => {
+            console.log(
+              '📜 ~ file: planning-table-overview.component.ts ~ PlanningTableOverviewComponent ~ getWorkingHourRangeList ~ err',
+              err
+            );
+          },
+        });
+    });
   }
 
   onDelete(id: number) {
