@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs';
-import { User, UserRoleType } from 'src/app/modules/core/model';
+import { User, UserProfile } from 'src/app/modules/core/model';
 import { AlertService } from 'src/app/modules/core/services/alert.service';
 import { AuthenticationService } from 'src/app/modules/core/services/authentication.service';
 import { UserService } from 'src/app/modules/core/services/user.service';
@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
     this.userService
       .register(
         new User({
-          role: UserRoleType.Student,
+          profile: UserProfile.Student,
           email: this.f['email'].value,
           password: this.f['password'].value,
           token: 'fake-jwt-token',

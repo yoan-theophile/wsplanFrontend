@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, lastValueFrom, Observable } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { User } from '../model';
+import { User, UserProfile } from '../model';
 import { AlertService } from './alert.service';
 import { LoggerService } from './logger.service';
 @Injectable({
@@ -25,9 +25,15 @@ export class AuthenticationService {
   }
 
   isLoggedIn() {
-    // return JSON.stringify(this.currentUserValue) != '{}';
-    return new Date().getTime() < this.getExpiration();
+    return JSON.stringify(this.currentUserValue) != '{}';
+    // return new Date().getTime() < this.getExpiration();
   }
+
+  
+  public get loggedIn() : boolean {
+    return this.isLoggedIn();
+  }
+  
 
   isLoggedOut() {
     return !this.isLoggedIn;
@@ -36,6 +42,13 @@ export class AuthenticationService {
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
+
+
+  
+  public get currentUserProfile() : UserProfile {
+    return this.loggedIn ? this.currentUserValue.profile : UserProfile.Visitor
+  }
+  
 
   async login(email: string, password: string) {
     // reset alerts on submit

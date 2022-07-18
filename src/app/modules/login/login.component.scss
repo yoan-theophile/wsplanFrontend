@@ -1,13 +1,20 @@
 .login-card {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 16px 24px;
-    background-color: rgb(255, 255, 255);
-    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    border-radius: 4px;
-    box-shadow: rgba(103, 58, 183, 0.2) 0px 3px 5px -1px, rgba(103, 58, 183, 0.14) 0px 6px 10px 0px, rgba(103, 58, 183, 0.12) 0px 1px 18px 0px;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  background-color: rgb(255, 255, 255);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: rgba(103, 58, 183, 0.2) 0px 3px 5px -1px,
+    rgba(103, 58, 183, 0.14) 0px 6px 10px 0px,
+    rgba(103, 58, 183, 0.12) 0px 1px 18px 0px;
 }
 
-.mat-form-field {
-    width: 100%;
+mat-form-field {
+  width: 100%;
+}
+
+mat-card-title {
+  margin-bottom: 24px;
+  text-align: center;
 }

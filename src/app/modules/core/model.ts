@@ -40,14 +40,15 @@ export class User {
   token!: string;
   sex!: string;
   lastLog!: string;
-  role!: UserRoleType;
+  profile!: UserProfile;
 
   constructor(init?: Partial<User>) {
     Object.assign(this, init);
   }
 }
 
-export enum UserRoleType {
+export enum UserProfile {
   Student,
   Manager,
+  Visitor
 }

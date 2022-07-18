@@ -9,7 +9,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'planning/login',
+    path: 'login',
     loadChildren: () =>
       import('./modules/login/login-routing.module').then(
         (mod) => mod.LoginRoutingModule

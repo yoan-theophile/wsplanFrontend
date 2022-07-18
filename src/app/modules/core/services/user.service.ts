@@ -4,19 +4,23 @@ import { delay, lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../model';
 import { AlertService } from './alert.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient, private alertService: AlertService) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private alertService: AlertService
+  ) {}
 
   async getList() {
     let studentList: User[] = [];
     await lastValueFrom(
       this.http
         .get<User[]>(`${environment.JSON_SERVER_URL}/students`)
-        .pipe(delay(500))
     )
       .then((res) => {
         studentList = res;
@@ -41,8 +45,10 @@ export class UserService {
           );
         } else {
           await lastValueFrom(
-            this.http
-              .post<User>(`${environment.JSON_SERVER_URL}/students`, user)
+            this.http.post<User>(
+              `${environment.JSON_SERVER_URL}/students`,
+              user
+            )
           )
             .then(() => {
               this.alertService.success('Successful registration', {
@@ -60,4 +66,14 @@ export class UserService {
         console.log(err);
       });
   }
+
+  // getProfile() {
+    // this.router.events.forEach((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.featureName = event.url.split('/')[1];
+    //   }
+    // });
+    // return this.featureName;
+
+  // }
 }

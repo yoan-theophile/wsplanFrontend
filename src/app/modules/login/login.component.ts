@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/modules/core/services/alert.service';
 import { AuthenticationService } from 'src/app/modules/core/services/authentication.service';
+import { UserService } from '../core/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +24,10 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private router: Router,
-    private route: ActivatedRoute,
-    private alertService: AlertService
+    private route: ActivatedRoute
   ) {
     // redirect to home if already logged in
-    if (JSON.stringify(this.authenticationService.currentUserValue) != '{}') {
+    if (this.authenticationService.isLoggedIn()) {
       this.router.navigate(['/planning/add']);
     }
   }
@@ -63,9 +63,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService
       .login(this.f['email'].value, this.f['password'].value)
       .then(() => {
-        if (
-          JSON.stringify(this.authenticationService.currentUserValue) != '{}'
-        ) {
+        if (this.authenticationService.isLoggedIn()) {
           this.router.navigate([this.returnUrl]);
         }
         this.loading = false;

@@ -1,7 +1,7 @@
 {
   "students": [
     {
-      "role": 0,
+      "profile": 0,
       "email": "tagne@tagne.com",
       "password": "tagne@tagne.com",
       "token": "fake-jwt-token",
