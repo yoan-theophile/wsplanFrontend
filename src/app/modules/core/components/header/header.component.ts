@@ -27,6 +27,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.isLoggedIn = true;
           this.name = this.authenticationService.currentUserValue.firstName;
           this.class = this.authenticationService.currentUserValue.class;
+        } else {
+          this.isLoggedIn = false;
         }
       },
       error: (err) => {
