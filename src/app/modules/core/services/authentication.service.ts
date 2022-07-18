@@ -24,8 +24,13 @@ export class AuthenticationService {
     this.currentUser$ = this.currentUserSubject.asObservable();
   }
 
-  public isAuthenticate() {
-    return JSON.stringify(this.currentUserValue) != '{}';
+  isLoggedIn() {
+    // return JSON.stringify(this.currentUserValue) != '{}';
+    return new Date().getTime() < this.getExpiration();
+  }
+
+  isLoggedOut() {
+    return !this.isLoggedIn;
   }
 
   public get currentUserValue(): User {
@@ -43,8 +48,11 @@ export class AuthenticationService {
     )
       .then((user) => {
         if (user.length > 0) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.setSession({
+            user: user[0],
+            expiresIn: new Date(Date.now() + 3600).getTime(),
+            idToken: user[0].token,
+          });
           this.currentUserSubject.next(user[0]);
           this.alertService.success('Successful Authentication', {
             autoClose: true,
@@ -65,6 +73,36 @@ export class AuthenticationService {
   logout() {
     //  remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
+
+    localStorage.removeItem('id_token');
+    localStorage.removeItem('expires_at');
+
     this.currentUserSubject.next(new User());
+  }
+
+  private setSession({
+    idToken,
+    expiresIn,
+    user,
+  }: {
+    idToken: string;
+    expiresIn: number;
+    user: User;
+  }) {
+    // expireAt in milliseconds
+    const expiresAt = new Date(Date.now() + expiresIn).getTime();
+
+    // store user details and jwt token in local storage to keep user logged in between page refreshes
+    localStorage.setItem('currentUser', JSON.stringify(user));
+
+    localStorage.setItem('id_token', idToken);
+    localStorage.setItem('expires_at', JSON.stringify(expiresAt));
+  }
+
+  getExpiration() {
+    const expiration = localStorage.getItem('expires_at');
+    const expiresAt: number = JSON.parse(expiration || '0');
+
+    return expiresAt;
   }
 }
