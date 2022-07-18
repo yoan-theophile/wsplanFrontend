@@ -6,8 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription, tap } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { User, WorkingHourRange } from 'src/app/model';
-import { WorkingHourRangeService } from 'src/app/services/working-hour-range.service';
+import { User, WorkingHourRange } from 'src/app/modules/core/model';
+import { WorkingHourRangeService } from 'src/app/modules/core/services/working-hour-range.service';
 
 @Component({
   selector: 'app-planning-table-overview',

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AlertService } from 'src/app/services/alert.service';
-import { WorkingHourRangeService } from 'src/app/services/working-hour-range.service';
-import { WorkingHourRange } from '../../../model';
+import { AlertService } from 'src/app/modules/core/services/alert.service';
+import { WorkingHourRangeService } from 'src/app/modules/core/services/working-hour-range.service';
+import { WorkingHourRange } from '../../../core/model';
 
 @Component({
   selector: 'app-edit-working-hour-form',

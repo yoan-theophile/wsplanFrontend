@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivateChild {
   ) {}
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    console.log('CanActivate child called')
+    console.log('CanActivateChild called')
     const currentUser = this.authenticationService.currentUserValue;
     if (this.authenticationService.isAuthenticate()) {
       // authorized so return true

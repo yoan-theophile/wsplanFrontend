@@ -4,7 +4,7 @@ import {
   MatTreeFlatDataSource,
   MatTreeFlattener,
 } from '@angular/material/tree';
-import { WorkingHourRangeService } from 'src/app/services/working-hour-range.service';
+import { WorkingHourRangeService } from 'src/app/modules/core/services/working-hour-range.service';
 import { Subscription } from 'rxjs';
 
 interface WeeklyPlanningNode {

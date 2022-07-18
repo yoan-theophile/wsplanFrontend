@@ -6,8 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from 'src/app/services/alert.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AlertService } from 'src/app/modules/core/services/alert.service';
+import { AuthenticationService } from 'src/app/modules/core/services/authentication.service';
 
 @Component({
   selector: 'app-login',
