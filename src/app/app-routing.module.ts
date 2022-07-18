@@ -5,7 +5,7 @@ import { AuthGuard } from './modules/core/interceptors/guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'planning',
+    redirectTo: 'planning/students',
     pathMatch: 'full',
   },
   {

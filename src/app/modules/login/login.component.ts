@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     // redirect to home if already logged in
-    if (this.authenticationService.isLoggedIn()) {
+    if (this.authenticationService.loggedIn) {
       this.router.navigate(['/planning/add']);
     }
   }
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService
       .login(this.f['email'].value, this.f['password'].value)
       .then(() => {
-        if (this.authenticationService.isLoggedIn()) {
+        if (this.authenticationService.loggedIn) {
           this.router.navigate([this.returnUrl]);
         }
         this.loading = false;

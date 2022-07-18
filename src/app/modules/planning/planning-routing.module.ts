@@ -23,8 +23,8 @@ const routes: Routes = [
     component: WorkingStudentPlanningComponent,
   },
 
-  // otherwise redirect to home
-  { path: '**', redirectTo: '' },
+  // otherwise redirect to student
+  { path: '**', redirectTo: 'students' },
 ];
 
 @NgModule({
