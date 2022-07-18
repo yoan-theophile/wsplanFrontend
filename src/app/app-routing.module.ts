@@ -24,6 +24,14 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'manager',
+    canActivateChild: [AuthGuard],
+    loadChildren: () =>
+      import('./modules/manager/manager-routing.module').then(
+        (mod) => mod.ManagerRoutingModule
+      ),
+  },
+  {
     path: 'register',
     loadChildren: () =>
       import('./modules/register/register-routing.module').then(

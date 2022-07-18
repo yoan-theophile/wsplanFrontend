@@ -10,6 +10,7 @@ import { LoginModule } from './modules/login/login.module';
 import { CoreModule } from './modules/core/core.module';
 import { PlanningModule } from './modules/planning/planning.module';
 import { RegisterModule } from './modules/register/register.module';
+import { ManagerModule } from './modules/manager/manager.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RegisterModule } from './modules/register/register.module';
     LoginModule,
     CoreModule,
     PlanningModule,
-    RegisterModule
+    RegisterModule,
+    ManagerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
