@@ -17,6 +17,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatTreeModule,
     MatProgressSpinnerModule,
     MatButtonModule,
+    MatTooltipModule,
   ],
   exports: [
     EditWorkingHourComponent,

@@ -29,13 +29,17 @@
         <!-- Action Column -->
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let row" class="action"> 
-                <button mat-icon-button (click)="onEdit(row)" color="accent">
+            <td mat-cell *matCellDef="let row" class="action">
+                <button mat-icon-button matTooltip="Edit"
+                    aria-label="Button that displays a tooltip when focused or hovered over" (click)="onEdit(row)"
+                    color="accent">
                     <mat-icon class="mat-18">edit</mat-icon>
                 </button>
-                <button mat-icon-button (click)="onDelete(row.id)" color="warn">
+                <button mat-icon-button matTooltip="Delete"
+                    aria-label="Button that displays a tooltip when focused or hovered over" (click)="onDelete(row.id)"
+                    color="warn">
                     <mat-icon class="mat-18">delete_forever</mat-icon>
-                </button> 
+                </button>
             </td>
         </ng-container>
 
