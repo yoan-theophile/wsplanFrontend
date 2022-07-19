@@ -5,19 +5,7 @@ import { EditWorkingHourFormComponent } from './components/edit-working-hour-for
 import { PlanningTableOverviewComponent } from './components/planning-table-overview/planning-table-overview.component';
 import { WeeklyPlanningOverviewComponent } from './components/weekly-planning-overview/weekly-planning-overview.component';
 import { WorkingStudentPlanningComponent } from './components/working-student-planning/working-student-planning.component';
-import { RouterModule } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTreeModule } from '@angular/material/tree';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -29,20 +17,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
   imports: [
     CommonModule,
-    RouterModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatProgressBarModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTreeModule,
-    MatProgressSpinnerModule,
-    MatButtonModule,
-    MatTooltipModule,
+    SharedModule
   ],
   exports: [
     EditWorkingHourComponent,
