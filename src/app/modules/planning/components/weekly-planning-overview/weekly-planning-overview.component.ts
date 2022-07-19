@@ -56,23 +56,33 @@ export class WeeklyPlanningOverviewComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: WeeklyPlanningFlatNode) => node.expandable;
 
   ngOnInit(): void {
-    this.workingHourRangeService.getWeeklyPlanning();
-    this.weeklyPlanning =
-      this.workingHourRangeService.weeklyPlanning$.subscribe({
-        next: (data) => {
-          if (Array.isArray(data)) {
-            this.dataSource.data = data.map((element) => ({
-              name: `${new Date(element.date).toDateString()} (${
-                element.studentNumber || 0
-              } students)`,
-              children: element.workingHourList.map((workingHour: any) => ({
-                name: `${workingHour.firstName || ''} ${workingHour.lastName || ''} from ${workingHour.start_time || ''} to ${workingHour.end_time || ''}`,
-                children: [],
-              })),
-            }));
-          }
-          this.loading = false;
-        },
+    this.workingHourRangeService
+      .getWeeklyPlanning()
+      .then(() => {
+        this.loading = true;
+      })
+      .then(() => {
+        this.weeklyPlanning =
+          this.workingHourRangeService.weeklyPlanning$.subscribe({
+            next: (data) => {
+              if (Array.isArray(data)) {
+                this.dataSource.data = data.map((element) => ({
+                  name: `${new Date(element.date).toDateString()} (${
+                    element.studentNumber || 0
+                  } students)`,
+                  children: element.workingHourList.map((workingHour: any) => ({
+                    name: `${workingHour.firstName || ''} ${
+                      workingHour.lastName || ''
+                    } from ${workingHour.start_time || ''} to ${
+                      workingHour.end_time || ''
+                    }`,
+                    children: [],
+                  })),
+                }));
+              }
+              this.loading = false;
+            },
+          });
       });
   }
   ngOnDestroy(): void {

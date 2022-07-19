@@ -28,7 +28,6 @@ export class WorkingStudentPlanningComponent implements OnInit, OnDestroy {
   studentPlanning!: Subscription;
   loading: boolean = true;
 
-
   private _transformer = (node: WeeklyPlanningNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -58,13 +57,17 @@ export class WorkingStudentPlanningComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: WeeklyPlanningFlatNode) => node.expandable;
 
   ngOnInit(): void {
-    this.workingHourRangeService.getStudentPlanning();
+    this.workingHourRangeService.getStudentPlanning().then(() => {
+      this.loading = true;
+    });
     this.studentPlanning =
       this.workingHourRangeService.studentPlanning$.subscribe({
         next: (data) => {
           if (Array.isArray(data)) {
             this.dataSource.data = data.map((element) => ({
-              name: `View: ${element.student.firstName || ''} ${element.student.lastName || ''}`,
+              name: `View: ${element.student.firstName || ''} ${
+                element.student.lastName || ''
+              }`,
               children: element.workingHourList.map((workingHour: any) => ({
                 name: `${new Date(workingHour.date).toDateString()} from ${
                   workingHour.start_time || ''

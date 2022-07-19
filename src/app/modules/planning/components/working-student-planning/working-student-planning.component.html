@@ -2,7 +2,6 @@
     <h1>Working student planning</h1>
     <p *ngIf="dataSource.data.length == 0">There is no student planning at the moment.</p>
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
-    <!-- TODO: THE PROGRESS BAT HAS TO APPEAR WHEN DATA ARE LOADING -->
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
