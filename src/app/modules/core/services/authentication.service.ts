@@ -29,11 +29,9 @@ export class AuthenticationService {
     // return new Date().getTime() < this.getExpiration();
   }
 
-  
-  public get loggedIn() : boolean {
+  public get loggedIn(): boolean {
     return this.isLoggedIn();
   }
-  
 
   isLoggedOut() {
     return !this.isLoggedIn;
@@ -43,12 +41,9 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-
-  
-  public get currentUserProfile() : UserProfile {
-    return this.loggedIn ? this.currentUserValue.profile : UserProfile.Visitor
+  public get currentUserProfile(): UserProfile {
+    return this.loggedIn ? this.currentUserValue.profile : UserProfile.Visitor;
   }
-  
 
   async login(email: string, password: string) {
     // reset alerts on submit
@@ -61,16 +56,23 @@ export class AuthenticationService {
     )
       .then((user) => {
         if (user.length > 0) {
-          this.setSession({
-            user: user[0],
-            expiresIn: new Date(Date.now() + 3600).getTime(),
-            idToken: user[0].token,
-          });
-          this.currentUserSubject.next(user[0]);
-          this.alertService.success('Successful Authentication', {
-            autoClose: true,
-          });
-          return true;
+          if (user[0].active) {
+            this.setSession({
+              user: user[0],
+              expiresIn: new Date(Date.now() + 3600).getTime(),
+              idToken: user[0].token,
+            });
+            this.currentUserSubject.next(user[0]);
+            this.alertService.success('Successful Authentication', {
+              autoClose: true,
+            });
+            return true;
+          } else {
+            this.alertService.error(
+              'Authentication failed. Account deactivated.'
+            );
+            return false;
+          }
         } else {
           this.alertService.error(
             'Authentication failed. Incorrect email or password'

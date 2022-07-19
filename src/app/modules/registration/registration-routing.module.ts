@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './components/register/register.component';
+import { StudentListComponent } from './components/student-list/student-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'new-student', pathMatch: 'full' },
@@ -9,8 +10,8 @@ const routes: Routes = [
     path: 'new-student',
     component: RegisterComponent,
   },
-  { path: 'list-of-students', redirectTo: '' },
-  { path: 'edit-student/:id', redirectTo: '' },
+  { path: 'list-of-students', component: StudentListComponent },
+  { path: 'edit-student/:id', component: RegisterComponent },
 
   // TODO: SET THE CORRECT REDIRECTION
   // otherwise redirect to register

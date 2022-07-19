@@ -40,6 +40,7 @@ export class User {
   token!: string;
   sex!: string;
   lastLog!: string;
+  active!: boolean;
   profile!: UserProfile;
 
   constructor(init?: Partial<User>) {

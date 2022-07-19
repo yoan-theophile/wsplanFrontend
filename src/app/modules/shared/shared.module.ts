@@ -16,6 +16,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCardModule } from '@angular/material/card';
+import * as Model from '../core/model'
 
 @NgModule({
   declarations: [],
@@ -36,6 +38,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatTooltipModule,
+    MatCardModule,
   ],
   exports: [
     RouterModule,
@@ -52,6 +55,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatTooltipModule,
+    MatCardModule,
   ],
 })
 export class SharedModule {}

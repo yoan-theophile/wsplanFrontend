@@ -19,18 +19,60 @@ export class UserService {
   async getList() {
     let studentList: User[] = [];
     await lastValueFrom(
-      this.http
-        .get<User[]>(`${environment.JSON_SERVER_URL}/students`)
+      this.http.get<User[]>(`${environment.JSON_SERVER_URL}/students`)
     )
       .then((res) => {
         studentList = res;
       })
       .catch((err) => {
-        this.alertService.error('An error occurred while loading data.', {
-          autoClose: false,
-        });
+        this.alertService.error('An error occurred while loading data.');
       });
     return studentList;
+  }
+
+  async updateStudent(user: User) {
+    await lastValueFrom(
+      this.http.put<User>(
+        `${environment.JSON_SERVER_URL}/students/${user.id}`,
+        user
+      )
+    )
+      .then((res) => {
+        this.alertService.success('Student updated successfully');
+      })
+      .catch((err) => {
+        this.alertService.error('An error occurred while updating data.');
+      });
+  }
+
+  async getStudent(id: number) {
+    let student: User = new User();
+    await lastValueFrom(
+      this.http.get<User>(`${environment.JSON_SERVER_URL}/students/${id}`)
+    )
+      .then((res) => {
+        student = res;
+      })
+      .catch((err: Error) => {
+        this.alertService.error('Cannot find this student');
+      });
+    return student;
+  }
+
+  async toggleStatus(user: User) {
+    const updatedUser: User = { ...user, active: !user.active };
+    await lastValueFrom(
+      this.http.put(
+        `${environment.JSON_SERVER_URL}/students/${user.id}`,
+        updatedUser
+      )
+    )
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        this.alertService.error('An error occurred while updating data.');
+      });
   }
 
   async register(user: User) {
@@ -68,12 +110,12 @@ export class UserService {
   }
 
   // getProfile() {
-    // this.router.events.forEach((event) => {
-    //   if (event instanceof NavigationEnd) {
-    //     this.featureName = event.url.split('/')[1];
-    //   }
-    // });
-    // return this.featureName;
+  // this.router.events.forEach((event) => {
+  //   if (event instanceof NavigationEnd) {
+  //     this.featureName = event.url.split('/')[1];
+  //   }
+  // });
+  // return this.featureName;
 
   // }
 }

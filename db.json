@@ -1,6 +1,7 @@
 {
   "students": [
     {
+      "id": 2,
       "profile": 0,
       "email": "tagne@tagne.com",
       "password": "tagne@tagne.com",
@@ -10,7 +11,7 @@
       "lastName": "Tagne",
       "sex": "M",
       "class": "IRT3",
-      "id": 2
+      "active": true
     },
     {
       "profile": 1,
@@ -22,7 +23,8 @@
       "lastName": "Pro",
       "sex": "M",
       "class": "",
-      "id": 3
+      "id": 3,
+      "active": true
     },
     {
       "profile": 0,
@@ -34,7 +36,21 @@
       "lastName": "l",
       "sex": "s",
       "class": "c",
-      "id": 4
+      "id": 4,
+      "active": true
+    },
+    {
+      "profile": 0,
+      "email": "b@b.b",
+      "password": "b@b.b",
+      "token": "fake-jwt-token",
+      "firstName": "no",
+      "lastLog": "2022-07-19",
+      "lastName": "ko",
+      "sex": "M",
+      "class": "c",
+      "id": 5,
+      "active": false
     }
   ],
   "working_hour_range": [

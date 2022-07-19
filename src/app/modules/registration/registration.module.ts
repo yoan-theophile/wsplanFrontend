@@ -4,21 +4,16 @@ import { CommonModule } from '@angular/common';
 import { RegistrationRoutingModule } from './registration-routing.module';
 import { RegisterComponent } from './components/register/register.component';
 
-import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
+
+import { StudentListComponent } from './components/student-list/student-list.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent, StudentListComponent],
   imports: [
     CommonModule,
     RegistrationRoutingModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule,
+    SharedModule
   ],
   exports: [RegisterComponent],
 })

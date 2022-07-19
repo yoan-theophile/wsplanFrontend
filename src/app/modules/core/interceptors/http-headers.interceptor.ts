@@ -6,6 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Injectable()
 export class HttpHeaderInterceptor implements HttpInterceptor {
@@ -24,7 +25,9 @@ export class HttpHeaderInterceptor implements HttpInterceptor {
       .set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
 
     const req = request.clone({ headers });
-    return next.handle(req);
+
+    // Delay is used just to wait 0.5 second
+    return next.handle(req).pipe(delay(500));
 
     // req = req.clone({
     //   setHeaders: {
