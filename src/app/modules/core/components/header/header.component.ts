@@ -45,6 +45,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentUser = this.authenticationService.currentUser$.subscribe({
       next: (user) => {
+        // After each subscription, we need to identify the new profile
+        this.identifyProfile();
+
         if (this.authenticationService.loggedIn) {
           this.isLoggedIn = true;
           this.name = this.authenticationService.currentUserValue.firstName;

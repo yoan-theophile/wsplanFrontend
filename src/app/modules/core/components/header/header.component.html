@@ -12,7 +12,6 @@
             <button mat-button class="toolbar-link">
                 <mat-icon>account_circle</mat-icon>
                 <span *ngSwitchCase="isStudentProfile" class="profil">{{name}}({{class}})</span>
-                <!-- TODO: FIX ERROR: AFTER BEING LOGGED, THE NAME AND THE CLASS DO NOT APPEAR UNTIL REFRESHING THE PAGE -->
                 <span *ngSwitchCase="isManagerProfile" class="profil">{{name}}</span>
             </button>
             <button mat-button class="toolbar-link" (click)="onLogout()">
@@ -27,7 +26,6 @@
         <a mat-button class="toolbar-link" routerLink="/planning/days" routerLinkActive="active">Days</a>
         <a mat-button *ngIf="isLoggedIn" class="toolbar-link" routerLink="/planning/add"
             routerLinkActive="active">Add</a>
-        <!-- TODO: FIX ERROR: AFTER BEING LOGGED, THIS LINK DO NOT APPEAR UNTIL REFRESHING THE PAGE -->
         <a *ngSwitchCase="isManagerProfile" mat-button class="toolbar-link" routerLink="/registration/new-student"
             routerLinkActive="active">Student Registration</a>
     </mat-toolbar-row>
