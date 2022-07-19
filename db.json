@@ -11,6 +11,30 @@
       "sex": "M",
       "class": "IRT3",
       "id": 2
+    },
+    {
+      "profile": 1,
+      "email": "manager@m.com",
+      "password": "manager@m.com",
+      "token": "fake-jwt-token",
+      "firstName": "My",
+      "lastLog": "2022-07-14",
+      "lastName": "Pro",
+      "sex": "M",
+      "class": "",
+      "id": 3
+    },
+    {
+      "profile": 0,
+      "email": "a@a.a",
+      "password": "a@a.a",
+      "token": "fake-jwt-token",
+      "firstName": "f",
+      "lastLog": "2022-07-19",
+      "lastName": "l",
+      "sex": "s",
+      "class": "c",
+      "id": 4
     }
   ],
   "working_hour_range": [

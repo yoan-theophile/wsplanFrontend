@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RegisterRoutingModule } from './register-routing.module';
-import { RegisterComponent } from './register.component';
+import { RegistrationRoutingModule } from './registration-routing.module';
+import { RegisterComponent } from './components/register/register.component';
 
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [RegisterComponent],
   imports: [
     CommonModule,
-    RegisterRoutingModule,
+    RegistrationRoutingModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
@@ -22,4 +22,4 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   exports: [RegisterComponent],
 })
-export class RegisterModule {}
+export class RegistrationModule {}

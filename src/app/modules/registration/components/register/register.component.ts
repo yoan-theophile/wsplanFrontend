@@ -23,10 +23,10 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private alertService: AlertService
   ) {
-    // redirect to home if already logged in
-    if (JSON.stringify(this.authenticationService.currentUserValue) != '{}') {
-      this.router.navigate(['/']);
-    }
+    // // redirect to home if already logged in
+    // if (JSON.stringify(this.authenticationService.currentUserValue) != '{}') {
+    //   this.router.navigate(['/']);
+    // }
   }
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
       )
       .then((val) => {
         this.loading = false;
-        this.router.navigateByUrl('/planning/login');
+        this.router.navigateByUrl('/registration/list-of-students');
       })
       .catch((err) => {
         console.log(err);

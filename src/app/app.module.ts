@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/login/login.module';
 import { CoreModule } from './modules/core/core.module';
 import { PlanningModule } from './modules/planning/planning.module';
-import { RegisterModule } from './modules/register/register.module';
+import { RegistrationModule } from './modules/registration/registration.module';
 import { ManagerModule } from './modules/manager/manager.module';
 
 @NgModule({
@@ -24,7 +24,7 @@ import { ManagerModule } from './modules/manager/manager.module';
     LoginModule,
     CoreModule,
     PlanningModule,
-    RegisterModule,
+    RegistrationModule,
     ManagerModule
   ],
   providers: [],

@@ -4,11 +4,6 @@ import { AuthGuard } from './modules/core/interceptors/guard';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'planning/students',
-    pathMatch: 'full',
-  },
-  {
     path: 'login',
     loadChildren: () =>
       import('./modules/login/login-routing.module').then(
@@ -25,22 +20,27 @@ const routes: Routes = [
   },
   {
     path: 'manager',
-    canActivateChild: [AuthGuard],
+    // canActivateChild: [AuthGuard],
     loadChildren: () =>
       import('./modules/manager/manager-routing.module').then(
         (mod) => mod.ManagerRoutingModule
       ),
   },
   {
-    path: 'register',
+    path: 'registration',
     loadChildren: () =>
-      import('./modules/register/register-routing.module').then(
-        (mod) => mod.RegisterRoutingModule
+      import('./modules/registration/registration-routing.module').then(
+        (mod) => mod.RegistrationRoutingModule
       ),
   },
+  {
+    path: '',
+    redirectTo: 'planning/students',
+    pathMatch: 'full',
+  },
 
-  // otherwise redirect to home
-  { path: '**', redirectTo: '' },
+  // otherwise redirect to login
+  { path: '**', redirectTo: 'login' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

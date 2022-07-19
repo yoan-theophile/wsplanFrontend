@@ -27,7 +27,8 @@
         <a mat-button class="toolbar-link" routerLink="/planning/days" routerLinkActive="active">Days</a>
         <a mat-button *ngIf="isLoggedIn" class="toolbar-link" routerLink="/planning/add"
             routerLinkActive="active">Add</a>
-        <a *ngSwitchCase="isManagerProfile" mat-button class="toolbar-link"
-            routerLink="/manager/student-registration" routerLinkActive="active">Student Registration</a>
+        <!-- TODO: FIX ERROR: AFTER BEING LOGGED, THIS LINK DO NOT APPEAR UNTIL REFRESHING THE PAGE -->
+        <a *ngSwitchCase="isManagerProfile" mat-button class="toolbar-link" routerLink="/registration/new-student"
+            routerLinkActive="active">Student Registration</a>
     </mat-toolbar-row>
 </mat-toolbar>
