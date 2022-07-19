@@ -20,6 +20,14 @@ mat-toolbar-row {
   mat-toolbar-row {
     padding-left: 8px;
     padding-right: 8px;
+    overflow: auto;
+    white-space: nowrap;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    a {
+      display: inline-flex;
+    }
   }
   .mat-button,
   .mat-icon-button,
@@ -33,5 +41,6 @@ mat-toolbar-row {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: inline-flex;
   }
 }
