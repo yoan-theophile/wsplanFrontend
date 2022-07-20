@@ -7,14 +7,12 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
 import { AlertComponent } from './components/alert/alert.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, AlertComponent],
-  imports: [CommonModule, RouterModule, MatToolbarModule, MatIconModule,MatButtonModule],
+  imports: [CommonModule, RouterModule, SharedModule],
   exports: [HeaderComponent, FooterComponent, AlertComponent],
   providers: [
     {

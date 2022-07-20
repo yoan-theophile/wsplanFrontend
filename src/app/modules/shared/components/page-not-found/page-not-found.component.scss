@@ -1,0 +1,21 @@
+.mat-card {
+  box-shadow: rgba(255, 215, 64, 0.2) 0px 3px 5px -1px,
+    rgba(255, 215, 64, 0.14) 0px 6px 10px 0px,
+    rgba(255, 215, 64, 0.12) 0px 1px 18px 0px;
+  max-width: 300px;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+mat-card-title {
+  font-size: xxx-large;
+  margin-bottom: 24px;
+  color: rgb(255, 215, 64);
+
+  .material-icons {
+    font-size: xxx-large;
+  }
+}

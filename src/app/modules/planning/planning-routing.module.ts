@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from '../shared/components/page-not-found/page-not-found.component';
 import { EditWorkingHourComponent } from './components/edit-working-hour/edit-working-hour.component';
 import { WeeklyPlanningOverviewComponent } from './components/weekly-planning-overview/weekly-planning-overview.component';
 import { WorkingStudentPlanningComponent } from './components/working-student-planning/working-student-planning.component';
@@ -23,8 +24,7 @@ const routes: Routes = [
     component: WorkingStudentPlanningComponent,
   },
 
-  // otherwise redirect to student
-  { path: '**', redirectTo: 'students' },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

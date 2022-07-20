@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './modules/core/interceptors/guard';
+import { PageNotFoundComponent } from './modules/shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'registration',
+    canActivateChild: [AuthGuard],
     loadChildren: () =>
       import('./modules/registration/registration-routing.module').then(
         (mod) => mod.RegistrationRoutingModule
@@ -39,8 +41,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
 
-  // otherwise redirect to login
-  { path: '**', redirectTo: 'login' },
+  { path: '**', component: PageNotFoundComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

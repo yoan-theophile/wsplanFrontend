@@ -17,10 +17,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
-import * as Model from '../core/model'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [PageNotFoundComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -39,6 +40,7 @@ import * as Model from '../core/model'
     MatButtonModule,
     MatTooltipModule,
     MatCardModule,
+    MatToolbarModule,
   ],
   exports: [
     RouterModule,
@@ -56,6 +58,8 @@ import * as Model from '../core/model'
     MatButtonModule,
     MatTooltipModule,
     MatCardModule,
+    MatToolbarModule,
+    PageNotFoundComponent,
   ],
 })
 export class SharedModule {}
